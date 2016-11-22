@@ -18,26 +18,26 @@
                     </select></label>
                 <button ng-click="getSearchResults()">Submit</button>
             </div>
-
         </form>
         <table border="1">
-            <tr>
-                <th><span> Image </span></th>
+            <thead>
+                <th><span> Flight Number </span></th>
                 <th><span> Departure airport </span></th>
                 <th><span> Departure date </span></th>
                 <th><span> Arrival airport </span></th>
-                <th><span> Arrival date </span></th>
-            </tr>
-            <tr>
-                <td><img src="" /></td>
-                <td><span> Departure airport </span></td>
-                <td><span> Departure date </span></td>
-                <td><span> Arrival airport </span></td>
-                <td><span> Arrival date </span></td>
+                <th><span> Travel Time(Minutes) </span></th>
+                <th><span> Seats </span></th>
+                <th><span> Total Price </span></th>
+            </thead>
+            <tr ng-repeat="flight in searchResults.flights">
+                <td><span>{{flight.flightNumber}}</span></td>
+                <td><span>{{flight.origin}} </span></td>
+                <td><span>{{flight.date}}</span></td>
+                <td><span>{{flight.destination}} </span></td>
+                <td><span>{{flight.traveltime}}</span></td>
+                <td><span>{{flight.numberOfSeats}}</span></td>
+                <td><span>{{flight.totalPrice}}Dkkr</span></td>
             </tr>
         </table>
-        <span>Total number of passengers:10 </span>
-        <span>Price Per passenger:170$ </span>
-        <span>Total Price:1700$ </span>
     </body>
 </html>
