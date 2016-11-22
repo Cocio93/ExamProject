@@ -7,10 +7,23 @@ app.config(['$routeProvider', function ($routeProvider) {
         });
     }]);
 
-app.controller('searchController', function ($scope) {
-    var airports = ['Berlin', 'Copenhagen', 'London', 'Paris', 'Barcelona'];
+app.controller('searchController', ['TicketFactory', '$scope', function (TicketFactory, $scope) {
+        $scope.airports = ['Berlin', 'Copenhagen', 'London', 'Paris', 'Barcelona'];
+        $scope.searchParams = {from: '', to: '', date: '', tickets: ''};
+        $scope.searchResults = {};
+        
+        $scope.getSearchResults = function() {
+            $scope.searchResults = TicketFactory.getFromTickets(
+                $scope.searchParams.from,
+                $scope.searchParams.date,
+                $scope.searchParams.tickets)
+                .success(function (data) {
+                    console.log(data);
+                    $scope.searchResults = data;
+                });
+        };
 
-});
+    }]);
 
 app.factory('TicketFactory', function ($http) {
     var baseUrl = 'http://airline-plaul.rhclod.com/api';
