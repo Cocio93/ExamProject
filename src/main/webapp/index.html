@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
     <head>
         <title>Start Page Test</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-loader.js"></script>       
+        <script src="views/app.js"></script>
+        <script src="views/search/script.js"></script>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1><a href='#/search'>Go To Search</a></h1>
+        <div ng-view></div>
     </body>
 </html>
