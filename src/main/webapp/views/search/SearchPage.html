@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+    </head>
+    <body>
+        <form action="" method="get">
+            <div>
+                <label>Departure Date:<input type="date" ng-model="searchParams.date" /></label>
+
+                <label>Departure Airport:<select ng-model="searchParams.from">
+                        <option ng-repeat="x in airports">{{x}}</option>
+                    </select></label>
+
+                <label>Number of passengers:<select ng-model="searchParams.tickets">
+                        <option ng-repeat="x in numOfTickets">{{x}}</option>
+                    </select></label>
+                <button ng-click="getSearchResults()">Submit</button>
+            </div>
+
+        </form>
+        <table border="1">
+            <tr>
+                <th><span> Image </span></th>
+                <th><span> Departure airport </span></th>
+                <th><span> Departure date </span></th>
+                <th><span> Arrival airport </span></th>
+                <th><span> Arrival date </span></th>
+            </tr>
+            <tr>
+                <td><img src="" /></td>
+                <td><span> Departure airport </span></td>
+                <td><span> Departure date </span></td>
+                <td><span> Arrival airport </span></td>
+                <td><span> Arrival date </span></td>
+            </tr>
+        </table>
+        <span>Total number of passengers:10 </span>
+        <span>Price Per passenger:170$ </span>
+        <span>Total Price:1700$ </span>
+    </body>
+</html>
