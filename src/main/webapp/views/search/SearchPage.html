@@ -5,10 +5,9 @@
         <title>Login</title>
     </head>
     <body>
-        <form action="" method="get">
+        <form>
             <div>
                 <label>Departure Date:<input type="date" ng-model="searchParams.date" /></label>
-
                 <label>Departure Airport:<select ng-model="searchParams.from">
                         <option ng-repeat="x in airports">{{x}}</option>
                     </select></label>
@@ -19,25 +18,27 @@
                 <button ng-click="getSearchResults()">Submit</button>
             </div>
         </form>
-        <table border="1">
+        <table border="1" ng-show="isSearched">
             <thead>
-                <th><span> Flight Number </span></th>
-                <th><span> Departure airport </span></th>
-                <th><span> Departure date </span></th>
-                <th><span> Arrival airport </span></th>
-                <th><span> Travel Time(Minutes) </span></th>
-                <th><span> Seats </span></th>
-                <th><span> Total Price </span></th>
-            </thead>
-            <tr ng-repeat="flight in searchResults.flights">
-                <td><span>{{flight.flightNumber}}</span></td>
-                <td><span>{{flight.origin}} </span></td>
-                <td><span>{{flight.date}}</span></td>
-                <td><span>{{flight.destination}} </span></td>
-                <td><span>{{flight.traveltime}}</span></td>
-                <td><span>{{flight.numberOfSeats}}</span></td>
-                <td><span>{{flight.totalPrice}}Dkkr</span></td>
-            </tr>
-        </table>
-    </body>
+            <th><span> Airline </span></th>
+            <th><span> Flight Number </span></th>
+            <th><span> Departure airport </span></th>
+            <th><span> Departure date </span></th>
+            <th><span> Arrival airport </span></th>
+            <th><span> Travel Time </span></th>
+            <th><span> Seats </span></th>
+            <th><span> Total Price </span></th>
+        </thead>
+        <tr ng-repeat="flight in searchResults.flights">
+            <td><span>{{searchResults.airline}}</span></td>
+            <td><span>{{flight.flightNumber}}</span></td>
+            <td><span>{{flight.origin}} </span></td>
+            <td><span>{{flight.date| date : "short"}}</span></td>
+            <td><span>{{flight.destination}} </span></td>
+            <td><span>{{flight.traveltime}} Minutes</span></td>
+            <td><span>{{flight.numberOfSeats}}</span></td>
+            <td><span>{{flight.totalPrice}}Dkkr</span></td>
+        </tr>
+    </table>
+</body>
 </html>
