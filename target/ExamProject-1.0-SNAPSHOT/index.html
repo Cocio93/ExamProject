@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
     <head>
-        <title>Start Page Test</title>
+        <title>Globetrotter</title>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-loader.js"></script>       
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-loader.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="views/app.js"></script>
         <script src="views/search/script.js"></script>
-
+        <script src="views/login/script.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
-    <body>
-        <h1><a href='#/search'>Go To Search</a></h1>
+    <body style="background-color: lightblue">
+        <nav class="navbar navbar-default" style="background-color: dodgerblue">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Globetrotter</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="#/search">Search</a></li>
+                    <li><a href="#/login">Login</a></li>
+                    <li><a href="#">Create User</a></li> 
+                </ul>
+            </div>
+        </nav>
         <div ng-view></div>
     </body>
 </html>
