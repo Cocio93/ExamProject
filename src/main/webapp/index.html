@@ -15,13 +15,14 @@
         <script src="views/createUser/script.js"></script>
 
     </head>
-    <body style="background: url('https://www.leonardo-hotels.com/octopus/Upload/images/HerodsTLV-Exterior_light.jpg') no-repeat; background-size: cover">
+    <body id="picture" style="background: url('img0.jpg') no-repeat; background-size: cover">
+        <!--<img id="picture" src="startpic.png">-->
         <nav class="navbar navbar-inverse" >
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
                         <img style="max-width:170px; margin-top: -5px;"
-                             src="logo.png">
+                             src="views/images/logo.png">
                     </a>
                 </div>
                 <ul class="nav navbar-nav">
@@ -30,7 +31,27 @@
                     <li><a href="#/signup">Create User</a></li> 
                 </ul>
             </div>
+            
         </nav>
         <div ng-view></div>
+        <script type="text/javascript">
+            startDiasShow();
+            var pictures = [], isShown = -1;
+            pictures[0] = "views/images/img0.jpg";
+            pictures[1] = "views/images/img1.jpg";
+            pictures[2] = "views/images/img2.jpg";
+            pictures[3] = "views/images/img3.jpg";
+            
+            function showPicture() {
+                isShown = (isShown === pictures.length -1)? 0 : isShown + 1;
+                document.getElementById('picture').style.background = 'url(' + pictures[isShown] + ') no-repeat';
+                document.getElementById('picture').style.backgroundSize = "cover";
+                console.log("Running");
+            }
+            function startDiasShow() {
+                console.log("StartDiasShow");
+               setInterval(showPicture, 3000);
+            }
+        </script>
     </body>
 </html>
