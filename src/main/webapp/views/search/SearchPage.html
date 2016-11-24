@@ -22,6 +22,7 @@
                 <button ng-click="getSearchResults()">Submit</button>
             </div>
         </form>
+
         <table border="1" ng-show="isSearched">
             <thead>
             <th><span> Airline </span></th>
@@ -33,16 +34,44 @@
             <th><span> Seats </span></th>
             <th><span> Total Price </span></th>
         </thead>
-        <tr ng-repeat="flight in searchResults.flights">
-            <td><span>{{searchResults.airline}}</span></td>
-            <td><span>{{flight.flightNumber}}</span></td>
-            <td><span>{{flight.origin}} </span></td>
-            <td><span>{{flight.date| date : "short"}}</span></td>
-            <td><span>{{flight.destination}} </span></td>
-            <td><span>{{flight.traveltime}} Minutes</span></td>
-            <td><span>{{flight.numberOfSeats}}</span></td>
-            <td><span>{{flight.totalPrice}}DKK</span></td>
-        </tr>
-    </table>
+        <tbody ng-repeat="a in searchResults">
+            <tr ng-repeat="flight in a">
+                <td> {{a.airline}}</td>
+                <td> {{a.flights[$index + 1].flightNumber}}</td>
+                <td> {{a.flights[$index + 1].origin}}</td>
+                <td> {{a.flights[$index + 1].date| date : "short"}}</td>
+                <td> {{a.flights[$index + 1].destination}}</td>
+                <td> {{a.flights[$index + 1].traveltime}}</td>
+                <td> {{a.flights[$index + 1].numberOfSeats}}</td>
+                <td> {{a.flights[$index + 1].totalPrice}} DKK</td>
+            </tr>
+        </tbody>
+        <table border="1" ng-show="isFlexSearched">
+            <thead>
+            <th><span> Airline </span></th>
+            <th><span> Flight Number </span></th>
+            <th><span> Departure airport </span></th>
+            <th><span> Departure date </span></th>
+            <th><span> Arrival airport </span></th>
+            <th><span> Travel Time </span></th>
+            <th><span> Seats </span></th>
+            <th><span> Total Price </span></th>
+            </thead>
+            <tbody ng-repeat="day in searchResults">
+                <tr ng-repeat="flight in day.flights">
+                    <td>{{day.airline}}</td>
+                    <td>{{flight.flightNumber}}</td>
+                    <td>{{flight.origin}}</td>
+                    <td>{{flight.date}}</td>
+                    <td>{{flight.destination}}</td>
+                    <td>{{flight.traveltime}}</td>
+                    <td>{{flight.numberOfSeats}}</td>
+                    <td>{{flight.totalPrice}}</td>
+                    
+                    
+                </tr>    
+            </tbody>
+        </table>
+
 </body>
 </html>
