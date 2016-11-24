@@ -34,6 +34,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                     ));
                     $scope.searchResults = arr;
                     date.setDate(date.getDate() + 1);
+                    $scope.isSearched = false;
                     $scope.isFlexSearched = true;
                 }
             } else {
@@ -47,6 +48,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                             $scope.searchResults = tmp;
                             console.log("results : " + tmp);
                         });
+                        $scope.isFlexSearched = false;
                 $scope.isSearched = true;
             }
         };
