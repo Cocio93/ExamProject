@@ -11,7 +11,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory, $scope) {
         $scope.airports = ['Berlin', 'CPH', 'London', 'Paris', 'Barcelona'];
         $scope.numOfTickets = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        $scope.searchParams = {from: '', to: '', date: '', tickets: '', flexdate: ''};
+        $scope.searchParams = {from: '', to: '', date: '', tickets: 1, flexdate: ''};
         $scope.searchResults = [];
         $scope.isSearched = false;
         $scope.flextoggle = false;

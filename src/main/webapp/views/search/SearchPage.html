@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="formStyle.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <title>Login</title>
     </head>
     <body>
@@ -22,6 +24,18 @@
                 <button ng-click="getSearchResults()">Submit</button>
             </div>
         </form>
+
+        <div class="form-style-inline">
+            <h2>Search for flights</h2>
+            <form>
+                <label>Departure date <input type="date" ng-model="searchParams.date" /></label>
+                <label>Departure Airport <select ng-model="searchParams.from">
+                        <option ng-repeat="x in airports">{{x}}</option>
+                    </select></label>
+                <label>No. Of passengers <input type="number" min="1" max="10" ng-model="searchParams.tickets"></label>
+                <input type="button" value="Sign In" />
+            </form>
+        </div>
 
         <table border="1" ng-show="isSearched">
             <thead>
@@ -67,8 +81,8 @@
                     <td>{{flight.traveltime}}</td>
                     <td>{{flight.numberOfSeats}}</td>
                     <td>{{flight.totalPrice}}</td>
-                    
-                    
+
+
                 </tr>    
             </tbody>
         </table>
