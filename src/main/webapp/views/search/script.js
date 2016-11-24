@@ -29,12 +29,8 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                             $scope.searchParams.date,
                             $scope.searchParams.tickets
                             ).success((function (data) {
-
                         arr.push(data);
-                        console.log(arr);
-                        
-                        
-                    }   
+                    }
                     ));
                     $scope.searchResults = arr;
                     date.setDate(date.getDate() + 1);
@@ -51,7 +47,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                             $scope.searchResults = tmp;
                             console.log("results : " + tmp);
                         });
-            $scope.isSearched = true;
+                $scope.isSearched = true;
             }
         };
     }]);
