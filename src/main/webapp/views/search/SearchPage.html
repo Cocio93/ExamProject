@@ -23,7 +23,7 @@
                 text-transform: uppercase;
                 font-family: 'Open Sans Condensed', sans-serif;
                 color: white;
-                font-size: 12px;
+                font-size: 14px;
                 font-weight: 300;
                 padding: 20px;
                 margin: -30px -30px 30px -30px;
@@ -73,7 +73,7 @@
                 <td> {{a.flights[$index + 1].destination}}</td>
                 <td> {{a.flights[$index + 1].traveltime}}</td>
                 <td> {{a.flights[$index + 1].numberOfSeats}}</td>
-                <td> {{a.flights[$index + 1].totalPrice}} DKK</td>
+                <td> {{a.flights[$index + 1].totalPrice  | currency : "Kr. "}}</td>
             </tr>
         </tbody>
 
@@ -98,7 +98,7 @@
                     <td>{{flight.destination}}</td>
                     <td>{{flight.traveltime}}</td>
                     <td>{{flight.numberOfSeats}}</td>
-                    <td>{{flight.totalPrice}}</td>
+                    <td>{{flight.totalPrice | currency : "Kr. "}}</td>
                 </tr>    
             </tbody>
         </table>
