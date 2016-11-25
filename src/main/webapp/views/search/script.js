@@ -9,7 +9,7 @@ app.config(['$routeProvider', function ($routeProvider) {
     }]);
 
 app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory, $scope) {
-        $scope.airports = ['Berlin', 'CPH', 'London', 'Paris', 'Barcelona'];
+        $scope.airports = [{code: 'CPH', name: 'Copenhagen'}, {code: 'STN', name: 'London'}, {code: 'BCN', name: 'Barcelona'}, {code: 'PAR', name: 'Paris'}, {code: 'SXF', name: 'Berlin'}];
         $scope.numOfTickets = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         $scope.searchParams = {from: '', to: '', date: '', tickets: 1, flexdate: ''};
         $scope.searchResults = [];
@@ -37,7 +37,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                     $scope.isSearched = false;
                     $scope.isFlexSearched = true;
                 }
-            } else {
+            } else {    
                 $scope.searchResults = TicketFactory.getFromTickets(
                         $scope.searchParams.from,
                         $scope.searchParams.date,
