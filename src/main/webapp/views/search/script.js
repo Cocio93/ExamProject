@@ -4,19 +4,17 @@ var app = angular.module('myApp.searchModule', ['ngRoute']);
 app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/search', {
             templateUrl: 'views/search/SearchPage.html',
-            controller: 'searchCtrl'
+            controller: 'searchCtrl',
         });
     }]);
 
 app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory, $scope) {
         $scope.airports = [{code: 'CPH', name: 'Copenhagen'}, {code: 'STN', name: 'London'}, {code: 'BCN', name: 'Barcelona'}, {code: 'PAR', name: 'Paris'}, {code: 'SXF', name: 'Berlin'}];
-        $scope.numOfTickets = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         $scope.searchParams = {from: '', to: '', date: '', tickets: 1, flexdate: ''};
         $scope.searchResults = [];
         $scope.isSearched = false;
         $scope.flextoggle = false;
         $scope.isFlexSearched = false;
-
 
         $scope.getSearchResults = function () {
             var date = $scope.searchParams.date;
@@ -51,6 +49,24 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                 $scope.isFlexSearched = false;
                 $scope.isSearched = true;
             }
+        };
+
+        $scope.minutesToHours = function (time) {
+            var hours = Math.trunc(time / 60);
+            var minutes = time % 60;
+            var res = hours + " hour(s) and " +  minutes + " minutes";
+            return res;
+            
+        };
+        
+        $scope.iATAToName = function(code) {
+            var name = '';
+            for (var i = 0; i < $scope.airports.length; i++) {
+                if ($scope.airports[i].code === code) {
+                    name = $scope.airports[i].name;
+                }
+            }
+            return name;
         };
     }]);
 

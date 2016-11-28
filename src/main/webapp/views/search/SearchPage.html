@@ -36,7 +36,7 @@
     </head>
     <body>
         <div class="form-style-inline">
-            <h2>Search for flights</h2>
+            <h2>Search</h2>
             <form>
                 <label>Departure date <input type="date" ng-model="searchParams.date" /></label>
                 <label>Departure Airport 
@@ -70,10 +70,10 @@
             <tr ng-repeat="flight in a">
                 <td> {{a.airline}}</td>
                 <td> {{a.flights[$index + 1].flightNumber}}</td>
-                <td> {{a.flights[$index + 1].origin}}</td>
+                <td> {{iATAToName(a.flights[$index + 1].origin)}}</td>
                 <td> {{a.flights[$index + 1].date| date : "short"}}</td>
-                <td> {{a.flights[$index + 1].destination}}</td>
-                <td> {{a.flights[$index + 1].traveltime}}</td>
+                <td> {{iATAToName(a.flights[$index + 1].destination)}}</td>
+                <td> {{minutesToHours(a.flights[$index + 1].traveltime)}}</td>
                 <td> {{a.flights[$index + 1].numberOfSeats}}</td>
                 <td> {{a.flights[$index + 1].totalPrice  | currency : "Kr. "}}</td>
             </tr>
@@ -95,10 +95,10 @@
                 <tr ng-repeat="flight in day.flights">
                     <td>{{day.airline}}</td>
                     <td>{{flight.flightNumber}}</td>
-                    <td>{{flight.origin}}</td>
+                    <td>{{iATAToName(flight.origin)}}</td>
                     <td>{{flight.date | date : "short"}}</td>
-                    <td>{{flight.destination}}</td>
-                    <td>{{flight.traveltime}}</td>
+                    <td>{{iATAToName(flight.destination)}}</td>
+                    <td>{{minutesToHours(flight.traveltime)}}</td>
                     <td>{{flight.numberOfSeats}}</td>
                     <td>{{flight.totalPrice | currency : "Kr. "}}</td>
                 </tr>    
