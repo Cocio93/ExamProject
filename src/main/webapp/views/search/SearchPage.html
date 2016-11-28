@@ -55,6 +55,13 @@
             </form>
         </div>
         
+        <div class="form-style-inline" ng-show="errorOccured === true">
+            <div style="text-align: center; color: white; font-size: 18px">
+                Some fields in the search form is not filled out, <br>
+                or is filled out incorrectly
+            </div>
+        </div>        
+        
         <table border="1" ng-show="isSearched">
             <thead>
             <th><span> Airline </span></th>

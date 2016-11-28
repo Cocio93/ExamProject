@@ -13,14 +13,16 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
         $scope.searchResults = [];
         $scope.isSearched = false;
         $scope.flextoggle = false;
+        $scope.errorOccured = false;
 
         $scope.getSearchResults = function () {
             $scope.searchResults = [];
             if ($scope.searchParams.date === "" || $scope.searchParams.from === "" || ($scope.flextoggle === true && $scope.searchParams.flexdate === "")) {
-                console.log("Something was not filled out properly, returning");
                 $scope.isSearched = false;
-                return true;
+                $scope.errorOccured = true;
+                return;
             } else {
+                $scope.errorOccured = false;
                 $scope.isSearched = true;
             }
 

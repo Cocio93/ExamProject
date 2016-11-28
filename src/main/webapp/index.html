@@ -15,7 +15,7 @@
         <script src="views/createUser/script.js"></script>
 
     </head>
-    <body id="picture" style="background: url('views/images/img0.jpg') no-repeat; background-size: cover">
+    <body id="picture" style="background: url('views/images/p0.jpg') no-repeat; background-size: cover">
         <nav class="navbar navbar-inverse" >
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -45,10 +45,8 @@
                 isShown = (isShown === pictures.length - 1) ? 0 : isShown + 1;
                 document.getElementById('picture').style.background = 'url(' + pictures[isShown] + ') no-repeat';
                 document.getElementById('picture').style.backgroundSize = "cover";
-                console.log("Running");
             }
             function startDiasShow() {
-                console.log("StartDiasShow");
                 setInterval(showPicture, 5000);
             }
         </script>
