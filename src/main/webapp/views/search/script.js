@@ -76,12 +76,15 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
 
         $scope.iATAToName = function (code) {
             var name = '';
+            var codeName = '';
             for (var i = 0; i < $scope.airports.length; i++) {
                 if ($scope.airports[i].code === code) {
                     name = $scope.airports[i].name;
+                    codeName = $scope.airports[i].code;
                 }
             }
-            return name;
+            var res = name + "(" + codeName + ")";
+            return res;
         };
     }]);
 
