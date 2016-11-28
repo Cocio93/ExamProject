@@ -14,10 +14,11 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
         $scope.isSearched = false;
         $scope.flextoggle = false;
         $scope.errorOccured = false;
+        $scope.fixedDestination = false;
 
         $scope.getSearchResults = function () {
             $scope.searchResults = [];
-            if ($scope.searchParams.date === "" || $scope.searchParams.from === "" || ($scope.flextoggle === true && $scope.searchParams.flexdate === "")) {
+            if ($scope.searchParams.date === "" || $scope.searchParams.from === "" || ($scope.flextoggle === true && $scope.searchParams.flexdate === "") || $scope.searchParams.tickets < 1) {
                 $scope.isSearched = false;
                 $scope.errorOccured = true;
                 return;
@@ -36,21 +37,25 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             if ($scope.flextoggle === true) {
                 var arr = [];
                 while (date <= flexdate) {
-                    $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
-                            .success((function (data) {
-                                arr.push(data);
-                            }
-                            ));
-                    $scope.searchResults = arr;
-                    date.setDate(date.getDate() + 1);
+                    if (!$scope.fixedDestination) {
+                        $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
+                                .success((function (data) {
+                                    arr.push(data);
+                                }
+                                ));
+                        $scope.searchResults = arr;
+                        date.setDate(date.getDate() + 1);
+                    }
                 }
             } else {
-                $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
-                        .success(function (data) {
-                            var arr = [];
-                            arr.push(data);
-                            $scope.searchResults = arr;
-                        });
+                if (!$scope.fixedDestination) {
+                    $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
+                            .success(function (data) {
+                                var arr = [];
+                                arr.push(data);
+                                $scope.searchResults = arr;
+                            });
+                }
             }
             date.setDate(date.getDate() - 1);
         };
@@ -86,6 +91,12 @@ app.factory('TicketFactory', function ($http) {
         getFromTickets: function (from, date, tickets) {
             return $http({
                 url: baseUrl + '/' + from + '/' + date.toISOString() + '/' + tickets,
+                method: 'get'
+            });
+        },
+        getFromToTickets: function (from, to, date, tickets) {
+            return $http({
+                url: baseUrl + '/' + from + '/' + to + "/" + date + '/' + tickets,
                 method: 'get'
             });
         }

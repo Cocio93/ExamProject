@@ -9,8 +9,12 @@
                 border-collapse: collapse;
                 margin: 50px auto;
                 width: 850px;
-                max-height: 900px;
-                overflow: scroll;
+                border: 1px solid black;
+            }
+
+            tbody {
+                height: 400px;
+                overflow: auto;
             }
 
             td, tr {
@@ -19,9 +23,9 @@
                 text-align: left;
                 background-color: rgba(255,255,255, 0.6);                
             }
-            
+
             thead, th{
-                background: rgba(34,34,34,0.8);
+                background: rgba(34,34,34, 1);
                 text-transform: uppercase;
                 font-family: 'Open Sans Condensed', sans-serif;
                 color: white;
@@ -51,41 +55,43 @@
                 <input type="button" value="Search" ng-click="getSearchResults()"/>
             </form>
             <form>     
-                <label>Flexible Date <input type="checkbox" ng-model="flextoggle"><input type="date" ng-show="flextoggle" ng-model="searchParams.flexdate" min="{{searchParams.date | date:'yyyy-MM-dd'}}"/></label>
+                <label>Flexible Date <input type="checkbox" ng-model="flextoggle"><input type="date" ng-show="flextoggle" ng-model="searchParams.flexdate" min="{{searchParams.date| date:'yyyy-MM-dd'}}"/></label>
             </form>
         </div>
-        
+
         <div class="form-style-inline" ng-show="errorOccured === true">
-            <div style="text-align: center; color: white; font-size: 18px">
+            <div style="text-align: center; color: white; font-size: 20px">
                 Some fields in the search form is not filled out, <br>
                 or is filled out incorrectly
             </div>
         </div>        
-        
-        <table border="1" ng-show="isSearched">
-            <thead>
-            <th><span> Airline </span></th>
-            <th><span> Flight Number </span></th>
-            <th><span> Departure airport </span></th>
-            <th><span> Departure date </span></th>
-            <th><span> Arrival airport </span></th>
-            <th><span> Travel Time </span></th>
-            <th><span> Seats </span></th>
-            <th><span> Total Price </span></th>
-        </thead>
-        <tbody ng-repeat="date in searchResults">
-            <tr ng-repeat="flight in date.flights | orderBy: 'date'">
-                <td> {{date.airline}}</td>
-                <td> {{flight.flightNumber}}</td>
-                <td> {{iATAToName(flight.origin)}}</td>
-                <td> {{flight.date| date : "short"}}</td>
-                <td> {{iATAToName(flight.destination)}}</td>
-                <td> {{minutesToHours(flight.traveltime)}}</td>
-                <td> {{flight.numberOfSeats}}</td>
-                <td> {{flight.totalPrice| currency : "Kr. "}}</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+
+        <div>
+            <table border="1" ng-show="isSearched">
+                <thead>
+                <th><span> Airline </span></th>
+                <th><span> Flight Number </span></th>
+                <th><span> Departure airport </span></th>
+                <th><span> Departure date </span></th>
+                <th><span> Arrival airport </span></th>
+                <th><span> Travel Time </span></th>
+                <th><span> Seats </span></th>
+                <th><span> Total Price </span></th>
+                </thead>
+                <tbody ng-repeat="date in searchResults">
+                    <tr ng-repeat="flight in date.flights| orderBy: 'date'">
+                        <td> {{date.airline}}</td>
+                        <td> {{flight.flightNumber}}</td>
+                        <td> {{iATAToName(flight.origin)}}</td>
+                        <td> {{flight.date| date : "short"}}</td>
+                        <td> {{iATAToName(flight.destination)}}</td>
+                        <td> {{minutesToHours(flight.traveltime)}}</td>
+                        <td> {{flight.numberOfSeats}}</td>
+                        <td> {{flight.totalPrice| currency : "Kr. "}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>
 
