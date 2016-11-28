@@ -1,6 +1,5 @@
 var app = angular.module('myApp.searchModule', ['ngRoute']);
 
-
 app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/search', {
             templateUrl: 'views/search/SearchPage.html',

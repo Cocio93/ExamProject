@@ -65,6 +65,7 @@
 {
     background: rgba(34,34,34,0.6);
     text-transform: uppercase;
+    text-align: center;
     font-family: 'Open Sans Condensed', sans-serif;
     color: white;
     font-size: 18px;
