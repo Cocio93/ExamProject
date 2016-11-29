@@ -28,8 +28,10 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             var from = $scope.searchParams.from;
             var date = new Date();
             date.setTime($scope.searchParams.date);
-            var flexdate = $scope.searchParams.flexdate;
             date.setDate(date.getDate() + 1);
+            var flexdate = new Date();
+            flexdate.setTime($scope.searchParams.flexdate);
+            flexdate.setDate(flexdate.getDate() + 1);
 
             if ($scope.flextoggle === true) {
                 var arr = [];
@@ -113,13 +115,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                 $scope.noFlights = true;
             }
         };
-        
-        $scope.getMinDate = function() {
-            var date = new Date();
-            date.setTime($scope.searchParams.date.getDate() + 1);
-            return date;
-        };
-        
+
         $scope.minutesToHours = function (time) {
             var hours = Math.trunc(time / 60);
             var minutes = time % 60;
@@ -165,3 +161,4 @@ app.factory('TicketFactory', function ($http) {
         }
     };
 });
+

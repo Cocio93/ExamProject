@@ -25,7 +25,18 @@
                 background-color: rgba(255,255,255, 0.6);                
             }
 
-            thead, th{
+            td.dateheader {
+                background: rgba(34,34,34, 1);
+                text-transform: uppercase;
+                font-family: 'Open Sans Condensed', sans-serif;
+                color: white;
+                font-size: 14px;
+                font-weight: 300;
+                margin: -30px -30px 30px -30px;
+                height: 10px;  
+            }
+
+            thead, th {
                 background: rgba(34,34,34, 1);
                 text-transform: uppercase;
                 font-family: 'Open Sans Condensed', sans-serif;
@@ -58,7 +69,7 @@
             </form>
             <form>     
                 <label>Flexible Date <input type="checkbox" ng-model="flextoggle" onClick="document.getElementById('flexDate').disabled = !this.checked;">
-                    <input id="flexDate" type="date" ng-model="searchParams.flexdate" onkeydown="return false;" min="{{searchParams.date | date:'yyyy-MM-dd'}}" disabled="disabled"/>
+                    <input id="flexDate" type="date" ng-model="searchParams.flexdate" onkeydown="return false;" min="{{searchParams.date| date:'yyyy-MM-dd'}}" disabled="disabled"/>
                 </label>
                 <label>Destination Airport
                     <input type="checkbox" ng-model="fixedDestination" onClick="document.getElementById('destination').disabled = !this.checked;">
@@ -95,8 +106,13 @@
                 <th><span> Seats </span></th>
                 <th><span> Total Price </span></th>
                 </thead>
-                <tbody ng-repeat="date in searchResults">
-                    <tr ng-repeat="flight in date.flights| orderBy: 'date'">
+                <tbody ng-repeat="date in searchResults| orderBy: 'flights[0].date'">
+                    <tr>
+                        <td class="dateheader" colspan="8" style="text-align: center" >
+                            Flights for {{date.flights[0].date| date : 'longDate'}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="flight in date.flights| orderBy: 'date'" >
                         <td> {{date.airline}}</td>
                         <td> {{flight.flightNumber}}</td>
                         <td> {{iATAToName(flight.origin)}}</td>
