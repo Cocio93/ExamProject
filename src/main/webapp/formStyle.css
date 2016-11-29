@@ -11,7 +11,7 @@
 }
 .form-style-inline{
     font-family: 'Open Sans Condensed', arial, sans;
-    width: 850px;
+    width: 900px;
     padding: 30px;
     background: rgba(0,0,0,0.6);
     margin: 50px auto;
@@ -19,6 +19,11 @@
     -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
 
+}
+
+.form-style-inline input[type=checkbox] {
+  transform: scale(1.2);
+  margin-right: 2px;
 }
 .form-style-inline input[type="text"],
 .form-style-inline input[type="date"],
@@ -60,6 +65,12 @@
     color: black; 
 }
 
+.form-style-inline select[disabled],
+.form-style-inline input[type="date"][disabled]{
+    color: #DCDAD1;
+    opacity: 0;
+}
+
 .form-style-8 h2,
 .form-style-inline h2
 {
@@ -68,9 +79,9 @@
     text-align: center;
     font-family: 'Open Sans Condensed', sans-serif;
     color: white;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 100;
-    padding: 5px;
+    padding: 15px;
     margin: -30px -30px 30px -30px;
 }
 

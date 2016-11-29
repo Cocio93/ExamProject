@@ -15,10 +15,17 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
         $scope.flextoggle = false;
         $scope.errorOccured = false;
         $scope.fixedDestination = false;
+        $scope.noFlights = false;
 
         $scope.getSearchResults = function () {
             $scope.searchResults = [];
-            if ($scope.searchParams.date === "" || $scope.searchParams.from === "" || ($scope.flextoggle === true && $scope.searchParams.flexdate === "") || $scope.searchParams.tickets < 1) {
+            if ($scope.searchParams.date === "" ||
+                    $scope.searchParams.from === "" ||
+                    ($scope.flextoggle === true && $scope.searchParams.flexdate === "") ||
+                    ($scope.fixedDestination === true && $scope.searchParams.from === $scope.searchParams.to) ||
+                    ($scope.fixedDestination === true && $scope.searchParams.to === ""))
+
+            {
                 $scope.isSearched = false;
                 $scope.errorOccured = true;
                 return;
@@ -30,36 +37,83 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             var tickets = $scope.searchParams.tickets;
             var to = $scope.searchParams.to;
             var from = $scope.searchParams.from;
-            var date = $scope.searchParams.date;
+            var date = new Date();
+            date.setTime($scope.searchParams.date);
             var flexdate = $scope.searchParams.flexdate;
             date.setDate(date.getDate() + 1);
 
             if ($scope.flextoggle === true) {
                 var arr = [];
                 while (date <= flexdate) {
-                    if (!$scope.fixedDestination) {
+                    if ($scope.fixedDestination === false) {
                         $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
                                 .success((function (data) {
                                     arr.push(data);
                                 }
-                                ));
-                        $scope.searchResults = arr;
-                        date.setDate(date.getDate() + 1);
+                                ))
+                                .error(function (error) {
+                                    $scope.setNoFlights(arr);
+                                    return;
+                                });
+                    } else if ($scope.fixedDestination === true) {
+                        $scope.searchResults = TicketFactory.getFromToTickets(from, to, date, tickets)
+                                .success((function (data) {
+                                    arr.push(data);
+                                }))
+                                .error(function (error) {
+                                    $scope.setNoFlights(arr);
+                                    return;
+                                });
                     }
+                    date.setDate(date.getDate() + 1);
                 }
-            } else {
-                if (!$scope.fixedDestination) {
+            } else if ($scope.flextoggle === false) {
+                if ($scope.fixedDestination === false) {
                     $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
                             .success(function (data) {
                                 var arr = [];
                                 arr.push(data);
                                 $scope.searchResults = arr;
+                            })
+                            .error(function (error) {
+                                $scope.isSearched = false;
+                                $scope.noFlights = true;
+                                return;
+                            });
+                } else if ($scope.fixedDestination === true) {
+                    $scope.searchResults = TicketFactory.getFromToTickets(from, to, date, tickets)
+                            .success((function (data) {
+                                var arr = [];
+                                arr.push(data);
+                                $scope.searchResults = arr;
+                            }))
+                            .error(function (error) {
+                                $scope.isSearched = false;
+                                $scope.noFlights = true;
+                                return;
                             });
                 }
+
             }
-            date.setDate(date.getDate() - 1);
+
+            $scope.noFlights = false;
+            $scope.isSearched = true;
+            $scope.searchResults = arr;
         };
 
+        $scope.setNoFlights = function (arr) {
+            if (arr === []) {
+                $scope.isSearched = false;
+                $scope.noFlights = true;
+            }
+        };
+        
+        $scope.getMinDate = function() {
+            var date = new Date();
+            date.setTime($scope.searchParams.date.getDate() + 1);
+            return date;
+        };
+        
         $scope.minutesToHours = function (time) {
             var hours = Math.trunc(time / 60);
             var minutes = time % 60;
@@ -70,7 +124,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             if (minutes === 0) {
                 return hours + " " + hourString;
             } else {
-                return hours + " " + hourString + " and " + minutes + " Minutes";
+                return hours + " " + hourString + " and " + minutes + " Min";
             }
         };
 
@@ -99,7 +153,7 @@ app.factory('TicketFactory', function ($http) {
         },
         getFromToTickets: function (from, to, date, tickets) {
             return $http({
-                url: baseUrl + '/' + from + '/' + to + "/" + date + '/' + tickets,
+                url: baseUrl + '/' + from + '/' + to + "/" + date.toISOString() + '/' + tickets,
                 method: 'get'
             });
         }
