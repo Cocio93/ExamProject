@@ -19,19 +19,8 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
 
         $scope.getSearchResults = function () {
             $scope.searchResults = [];
-            if ($scope.searchParams.date === "" ||
-                    $scope.searchParams.from === "" ||
-                    ($scope.flextoggle === true && $scope.searchParams.flexdate === "") ||
-                    ($scope.fixedDestination === true && $scope.searchParams.from === $scope.searchParams.to) ||
-                    ($scope.fixedDestination === true && $scope.searchParams.to === ""))
-
-            {
-                $scope.isSearched = false;
-                $scope.errorOccured = true;
+            if ($scope.inputErrors() === true) {
                 return;
-            } else {
-                $scope.errorOccured = false;
-                $scope.isSearched = true;
             }
 
             var tickets = $scope.searchParams.tickets;
@@ -51,7 +40,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                                     arr.push(data);
                                 }
                                 ))
-                                .error(function (error) {
+                                .error(function () {
                                     $scope.setNoFlights(arr);
                                     return;
                                 });
@@ -60,7 +49,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                                 .success((function (data) {
                                     arr.push(data);
                                 }))
-                                .error(function (error) {
+                                .error(function () {
                                     $scope.setNoFlights(arr);
                                     return;
                                 });
@@ -75,7 +64,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                                 arr.push(data);
                                 $scope.searchResults = arr;
                             })
-                            .error(function (error) {
+                            .error(function () {
                                 $scope.isSearched = false;
                                 $scope.noFlights = true;
                                 return;
@@ -87,13 +76,12 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
                                 arr.push(data);
                                 $scope.searchResults = arr;
                             }))
-                            .error(function (error) {
+                            .error(function () {
                                 $scope.isSearched = false;
                                 $scope.noFlights = true;
                                 return;
                             });
                 }
-
             }
 
             $scope.noFlights = false;
@@ -101,8 +89,26 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             $scope.searchResults = arr;
         };
 
+        $scope.inputErrors = function() {
+            if ($scope.searchParams.date === "" ||
+                    $scope.searchParams.from === "" ||
+                    ($scope.flextoggle === true && $scope.searchParams.flexdate === "") ||
+                    ($scope.fixedDestination === true && $scope.searchParams.from === $scope.searchParams.to) ||
+                    ($scope.fixedDestination === true && $scope.searchParams.to === ""))
+
+            {
+                $scope.isSearched = false;
+                $scope.errorOccured = true;
+                return true;
+            } else {
+                $scope.errorOccured = false;
+                $scope.isSearched = true;
+                return false;
+            }
+        };
+
         $scope.setNoFlights = function (arr) {
-            if (arr === []) {
+            if (arr === [] || arr === null || arr === "" || arr.length === 0) {
                 $scope.isSearched = false;
                 $scope.noFlights = true;
             }
