@@ -63,6 +63,7 @@
                 <th><span> Travel Time </span></th>
                 <th><span> Seats </span></th>
                 <th><span> Total Price </span></th>
+                <th><span> Reserve Tickets</span></th>
                 </thead>
                 <tbody ng-repeat="date in searchResults| orderBy: 'flights[0].date'">
                     <tr>
@@ -79,6 +80,7 @@
                         <td> {{minutesToHours(flight.traveltime)}}</td>
                         <td> {{flight.numberOfSeats}}</td>
                         <td> {{flight.totalPrice| currency : "Kr. "}}</td>
+                        <td><a href="#/reservation">Reserve tickets</a></td>
                     </tr>
                 </tbody>
             </table>
