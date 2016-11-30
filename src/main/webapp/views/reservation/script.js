@@ -5,6 +5,8 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'views/reservation/Reservation.html'
         });
     }]);
-app.controller("reservationCtrl", function(reservationService) {
-    data.getData();
+app.controller('reservationCtrl', function ($scope, reservationService) {
+        console.log('Inside');
+        $scope.resultSet = reservationService;
+        console.log('Outside');
 });

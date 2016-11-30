@@ -165,13 +165,15 @@ app.factory('TicketFactory', function ($http) {
     };
 });
 
-app.service("reservationService", function () {
-    var data = {};
-    data.setData = function (data) {
-        
-    };
+app.service('reservationService', function () {
+     return { Field: 'heyheyTester' };
+//    data.setData = function (data) {
+//        return data;
+//    };
     
-    data.getData = function (data) {
-    };
+//    data.getData = function (data) {
+//        console.log('hey');
+//        return data;
+//    };
 });
 
