@@ -5,7 +5,8 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.searchModule',
   'myApp.loginModule',
-  'myApp.signupModule'
+  'myApp.signupModule',
+  'myApp.reservationModule'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
