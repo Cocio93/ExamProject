@@ -166,7 +166,7 @@ app.factory('TicketFactory', function ($http) {
 });
 
 app.service('reservationService', function () {
-     return { Field: 'heyheyTester' };
+     return {Field: 'heyheyTester' };
 //    data.setData = function (data) {
 //        return data;
 //    };
