@@ -91,7 +91,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             $scope.searchResults = arr;
         };
 
-        $scope.inputErrors = function() {
+        $scope.inputErrors = function () {
             if ($scope.searchParams.date === "" ||
                     $scope.searchParams.from === "" ||
                     ($scope.flextoggle === true && $scope.searchParams.flexdate === "") ||
@@ -162,6 +162,14 @@ app.factory('TicketFactory', function ($http) {
                 method: 'get'
             });
         }
+    };
+});
+
+app.service("reservationService", function () {
+    this.addFlight = function () {
+    };
+    this.removeFlight = function () {
+
     };
 });
 
