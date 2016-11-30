@@ -13,27 +13,29 @@
         <div class="form-style-inline">
             <h2>Search For Flights</h2>
             <form>
-                <label>Departure date <input type="date" ng-model="searchParams.date" onkeydown="return false;" min="2017-01-01"/></label>
-                <label>Departure Airport &nbsp; &nbsp; &nbsp; &nbsp;
-                </label>
+                <label>Departure date&nbsp;</label>
+                <input type="date" ng-model="searchParams.date" onkeydown="return false;" min="2017-01-01"/>
+
+                <label>Departure Airport</label>
                 <select ng-model="searchParams.from">
                     <option ng-repeat="x in airports" value="{{x.code}}">{{x.name}}</option>
                 </select>
-                <label>No. Of passengers 
-                    <input type="number" min="1" max="10" ng-model="searchParams.tickets">
-                </label>
+
+                <label>No. Of passengers</label>
+                <input type="number" min="1" max="10" ng-model="searchParams.tickets">
                 <input type="button" value="Search" ng-click="getSearchResults()"/>
             </form>
+
             <form>     
-                <label>Flexible Date <input type="checkbox" ng-model="flextoggle" onClick="document.getElementById('flexDate').disabled = !this.checked;">
-                    <input id="flexDate" type="date" ng-model="searchParams.flexdate" onkeydown="return false;" min="{{searchParams.date| date:'yyyy-MM-dd'}}" disabled="disabled"/>
-                </label>
-                <label>Destination Airport
-                    <input type="checkbox" ng-model="fixedDestination" onClick="document.getElementById('destination').disabled = !this.checked;">
-                    <select id="destination" ng-model="searchParams.to" disabled="disabled">
-                        <option ng-repeat="x in airports" value="{{x.code}}">{{x.name}}</option>
-                    </select>
-                </label>
+                <label>Flexible Date</label>
+                <input type="checkbox" ng-model="flextoggle" onClick="document.getElementById('flexDate').disabled = !this.checked;">
+                <input id="flexDate" type="date" ng-model="searchParams.flexdate" onkeydown="return false;" min="{{searchParams.date| date:'yyyy-MM-dd'}}" disabled="disabled"/>
+
+                <label>Destination Airport</label>
+                <input type="checkbox" ng-model="fixedDestination" onClick="document.getElementById('destination').disabled = !this.checked;">
+                <select id="destination" ng-model="searchParams.to" disabled="disabled">
+                    <option ng-repeat="x in airports" value="{{x.code}}">{{x.name}}</option>
+                </select>
             </form>
         </div>
 
@@ -49,7 +51,6 @@
                 No flights available. Please choose another date or destination.
             </div>
         </div>
-
 
         <div>
             <table border="1" ng-show="isSearched">
