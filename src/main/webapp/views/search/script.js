@@ -166,10 +166,12 @@ app.factory('TicketFactory', function ($http) {
 });
 
 app.service("reservationService", function () {
-    this.addFlight = function () {
+    var data = {};
+    data.setData = function (data) {
+        
     };
-    this.removeFlight = function () {
-
+    
+    data.getData = function (data) {
     };
 });
 

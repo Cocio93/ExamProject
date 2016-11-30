@@ -5,3 +5,6 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'views/reservation/Reservation.html'
         });
     }]);
+app.controller("reservationCtrl", function(reservationService) {
+    data.getData();
+});
