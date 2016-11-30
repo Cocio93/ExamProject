@@ -113,6 +113,9 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             if (arr === [] || arr === null || arr === "" || arr.length === 0) {
                 $scope.isSearched = false;
                 $scope.noFlights = true;
+            } else {
+                $scope.noFlights = false;
+                $scope.isSearched = true;
             }
         };
 
