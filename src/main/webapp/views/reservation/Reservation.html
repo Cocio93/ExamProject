@@ -10,13 +10,17 @@
 
             <label style="color:#ffffff"> Flight number: {{ticket.flightNumber}}</label> <br>
             <label style="color:#ffffff"> Departure Airport: {{iATAToName(ticket.origin)}}</label><br>
-            <label style="color:#ffffff"> Date: {{ticket.date| date : "short"}}</label><br>
+            <label style="color:#ffffff"> Departure Date: {{ticket.date| date : "short"}}</label><br>
             <label style="color:#ffffff"> Arrival Airport: {{iATAToName(ticket.destination)}}</label><br>
             <label style="color:#ffffff"> Travel time: {{minutesToHours(ticket.traveltime)}}</label><br>
             <label style="color:#ffffff"> Number of seats: {{ticket.numberOfSeats}}</label><br>
-            <label style="color:#ffffff"> Total price: {{ticket.totalPrice| currency : "Kr. "}}</label><br>
-            <input type="text" name="field1" placeholder="Enter First Name" />
-            <input type="text" name="field2" placeholder="Enter Last Name" />
+            <label style="color:#ffffff"> Total price: {{ticket.totalPrice| currency : "Kr. "}}</label><br><br><br>
+            <input type="text" name="field1" placeholder="Reservee Name" />
+            <label style="color:#ffffff">First Passenger: </label>
+            <input type="text" name="field2" placeholder="Enter First Name" />
+            <input type="text" name="field3" placeholder="Enter Last Name" />
+            </div>
+            
             <input type="button" value="Confirm" />
         </form>
     </div>

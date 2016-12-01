@@ -13,7 +13,7 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
         {code: 'BCN', name: 'Barcelona'},
         {code: 'CDG', name: 'Paris'},
         {code: 'SXF', name: 'Berlin'}];
-
+   
     $scope.iATAToName = function (code) {
         var name = '';
         var codeName = '';
@@ -26,4 +26,18 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
         var res = name + "(" + codeName + ")";
         return res;
     };
+    $scope.minutesToHours = function (time) {
+        var hours = Math.trunc(time / 60);
+        var minutes = time % 60;
+        var hourString = "Hour";
+        if (hours > 1) {
+            hourString = "Hours";
+        }
+        if (minutes === 0) {
+            return hours + " " + hourString;
+        } else {
+            return hours + " " + hourString + " and " + minutes + " Min";
+        }
+    };
+
 });
