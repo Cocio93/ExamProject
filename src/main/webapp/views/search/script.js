@@ -35,7 +35,6 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
 
             //Saving data to the service
             $scope.reservationSetData = function (flight) {
-                console.log(flight);
                 reservationService.setData(flight);
             };
 
@@ -175,9 +174,7 @@ app.service('reservationService', function () {
     var data;
     return {
         setData: function (flight) {
-            console.log('Inside setdata');
             data = flight;
-            console.log('Data set: ' + data);
         },
         getData: function () {
             return data;

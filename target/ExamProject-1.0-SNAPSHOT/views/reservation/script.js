@@ -14,8 +14,6 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
         {code: 'CDG', name: 'Paris'},
         {code: 'SXF', name: 'Berlin'}];
 
-    console.log($scope.ticket);
-
     $scope.iATAToName = function (code) {
         var name = '';
         var codeName = '';
