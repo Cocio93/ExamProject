@@ -13,7 +13,29 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
         {code: 'BCN', name: 'Barcelona'},
         {code: 'CDG', name: 'Paris'},
         {code: 'SXF', name: 'Berlin'}];
-   
+
+    $scope.addFields = function () {
+        var seatNum = $scope.ticket.numberOfSeats;
+        var container = document.getElementById("container");
+        while (container.hasChildNodes()) {
+            container.removeChild(container.lastChild);
+        }
+        for (i = 0; i < seatNum; i++) {
+            container.appendChild(document.createTextNode("Passenger " + (i + 1)));
+            var inputFirst = document.createElement("input");
+            inputFirst.type = "text";
+            inputFirst.name = "first";
+            container.appendChild(inputFirst);
+
+            var inputLast = document.createElement("input");
+            inputLast.type = "text";
+            inputLast.name = "last";
+            container.appendChild(inputLast);
+            //container.appendChild(document.createElement("br"));
+        }
+        ;
+    };
+
     $scope.iATAToName = function (code) {
         var name = '';
         var codeName = '';
