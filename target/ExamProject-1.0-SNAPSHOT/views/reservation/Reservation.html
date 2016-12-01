@@ -15,10 +15,13 @@
             <label style="color:#ffffff"> Travel time: {{minutesToHours(ticket.traveltime)}}</label><br>
             <label style="color:#ffffff"> Number of seats: {{ticket.numberOfSeats}}</label><br>
             <label style="color:#ffffff"> Total price: {{ticket.totalPrice| currency : "Kr. "}}</label><br><br><br>
+            <label style="color:#ffffff">Reservee Information </label>
             <input type="text" name="field1" placeholder="Reservee Name" />
-            <label style="color:#ffffff">First Passenger: </label>
-            <input type="text" name="field2" placeholder="Enter First Name" />
-            <input type="text" name="field3" placeholder="Enter Last Name" />
+            <input type="text" name="field2" placeholder="Reservee Phone" />
+            <input type="text" name="field3" placeholder="Reservee Email" />
+            <label style="color:#ffffff">First Passenger </label>
+            <input type="text" name="field4" placeholder="Enter First Name" />
+            <input type="text" name="field5" placeholder="Enter Last Name" />
             </div>
             
             <input type="button" value="Confirm" />
