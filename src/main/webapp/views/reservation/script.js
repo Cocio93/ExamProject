@@ -6,7 +6,10 @@ app.config(['$routeProvider', function ($routeProvider) {
         });
     }]);
 app.controller('reservationCtrl', function ($scope, reservationService) {
-        console.log('Inside');
-        $scope.resultSet = reservationService;
-        console.log('Outside');
+    $scope.ticket = reservationService.getData();
+//    $scope.resultSet = function () {
+//        $scope.ticket = reservationService.getData;
+//    };
+
+    console.log($scope.ticket);
 });

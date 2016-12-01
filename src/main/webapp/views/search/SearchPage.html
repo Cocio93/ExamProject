@@ -80,7 +80,7 @@
                         <td> {{minutesToHours(flight.traveltime)}}</td>
                         <td> {{flight.numberOfSeats}}</td>
                         <td> {{flight.totalPrice| currency : "Kr. "}}</td>
-                        <td><a href="#/reservation">Reserve tickets</a></td>
+                        <td ng-click="reservationSetData(flight)"><a href="#/reservation" >Reserve tickets</a></td>
                     </tr>
                 </tbody>
             </table>

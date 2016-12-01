@@ -7,7 +7,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         });
     }]);
 
-app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory, $scope) {
+app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', function (TicketFactory, $scope, reservationService) {
         $scope.airports = [{code: 'CPH', name: 'Copenhagen'}, {code: 'STN', name: 'London'}, {code: 'BCN', name: 'Barcelona'}, {code: 'CDG', name: 'Paris'}, {code: 'SXF', name: 'Berlin'}];
         $scope.searchParams = {from: '', to: '', date: '', tickets: 1, flexdate: ''};
         $scope.searchResults = [];
@@ -32,6 +32,12 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', function (TicketFactory
             var flexdate = new Date();
             flexdate.setTime($scope.searchParams.flexdate);
             flexdate.setDate(flexdate.getDate() + 1);
+
+            //Saving data to the service
+            $scope.reservationSetData = function (flight) {
+                console.log(flight);
+                reservationService.setData(flight);
+            };
 
             if ($scope.flextoggle === true) {
                 var arr = [];
@@ -166,14 +172,15 @@ app.factory('TicketFactory', function ($http) {
 });
 
 app.service('reservationService', function () {
-     return {Field: 'heyheyTester' };
-//    data.setData = function (data) {
-//        return data;
-//    };
-    
-//    data.getData = function (data) {
-//        console.log('hey');
-//        return data;
-//    };
+    var data;
+    return {
+        setData: function (flight) {
+            console.log('Inside setdata');
+            data = flight;
+            console.log('Data set: ' + data);
+        },
+        getData: function () {
+            return data;
+        }
+    };
 });
-
