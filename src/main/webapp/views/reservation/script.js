@@ -24,11 +24,13 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
             container.appendChild(document.createTextNode("Passenger " + (i + 1)));
             var inputFirst = document.createElement("input");
             inputFirst.type = "text";
+            inputFirst.placeholder = "First Name";
             inputFirst.name = "first";
             container.appendChild(inputFirst);
 
             var inputLast = document.createElement("input");
             inputLast.type = "text";
+            inputLast.placeholder = "Last Name";
             inputLast.name = "last";
             container.appendChild(inputLast);
             //container.appendChild(document.createElement("br"));

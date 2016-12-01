@@ -7,22 +7,23 @@
     <div class="form-style-8">
         <h2>Reserve Tickets</h2>
         <form>
+            <div style="color:#ffffff">
+                <label> Flight number: {{ticket.flightNumber}}</label> <br>
+                <label> Departure Airport: {{iATAToName(ticket.origin)}}</label><br>
+                <label> Departure Date: {{ticket.date| date : "short"}}</label><br>
+                <label> Arrival Airport: {{iATAToName(ticket.destination)}}</label><br>
+                <label> Travel time: {{minutesToHours(ticket.traveltime)}}</label><br>
+                <label> Number of seats: {{ticket.numberOfSeats}}</label><br>
+                <label> Total price: {{ticket.totalPrice| currency : "Kr. "}}</label><br><br><br>
 
-            <label style="color:#ffffff"> Flight number: {{ticket.flightNumber}}</label> <br>
-            <label style="color:#ffffff"> Departure Airport: {{iATAToName(ticket.origin)}}</label><br>
-            <label style="color:#ffffff"> Departure Date: {{ticket.date| date : "short"}}</label><br>
-            <label style="color:#ffffff"> Arrival Airport: {{iATAToName(ticket.destination)}}</label><br>
-            <label style="color:#ffffff"> Travel time: {{minutesToHours(ticket.traveltime)}}</label><br>
-            <label style="color:#ffffff"> Number of seats: {{ticket.numberOfSeats}}</label><br>
-            <label style="color:#ffffff"> Total price: {{ticket.totalPrice| currency : "Kr. "}}</label><br><br><br>
-
-            <label style="color:#ffffff">Reservee Information </label>
+                <label>Reservee Information </label>
+            </div>
             <input type="text" name="field1" placeholder="Reservee Name" />
             <input type="text" name="field2" placeholder="Reservee Phone" />
             <input type="text" name="field3" placeholder="Reservee Email" />
 
-            <input type="button" id="filldetails" value="addfields" ng-click="addFields()"/>
-            <div id="container"></div>
+            <input type="button" id="filldetails" value="Set passenger data" ng-click="addFields()"/>
+            <div id="container" style="color:#ffffff"></div>
             <br><br>
             <input type="button" value="Confirm" />
         </form>
