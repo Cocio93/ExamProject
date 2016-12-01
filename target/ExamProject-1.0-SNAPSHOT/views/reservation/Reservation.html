@@ -7,8 +7,6 @@
     <div class="form-style-8">
         <h2>Reserve Tickets</h2>
         <form>
-            <input type="text" name="field1" placeholder="Enter First Name" />
-            <input type="text" name="field2" placeholder="Enter Last Name" />
 
             <label style="color:#ffffff"> Flight number: {{ticket.flightNumber}}</label> <br>
             <label style="color:#ffffff"> Departure Airport: {{iATAToName(ticket.origin)}}</label><br>
@@ -17,7 +15,8 @@
             <label style="color:#ffffff"> Travel time: {{minutesToHours(ticket.traveltime)}}</label><br>
             <label style="color:#ffffff"> Number of seats: {{ticket.numberOfSeats}}</label><br>
             <label style="color:#ffffff"> Total price: {{ticket.totalPrice| currency : "Kr. "}}</label><br>
-
+            <input type="text" name="field1" placeholder="Enter First Name" />
+            <input type="text" name="field2" placeholder="Enter Last Name" />
             <input type="button" value="Confirm" />
         </form>
     </div>

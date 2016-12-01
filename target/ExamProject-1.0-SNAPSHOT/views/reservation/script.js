@@ -7,9 +7,25 @@ app.config(['$routeProvider', function ($routeProvider) {
     }]);
 app.controller('reservationCtrl', function ($scope, reservationService) {
     $scope.ticket = reservationService.getData();
-//    $scope.resultSet = function () {
-//        $scope.ticket = reservationService.getData;
-//    };
+    $scope.airports = [
+        {code: 'CPH', name: 'Copenhagen'},
+        {code: 'STN', name: 'London'},
+        {code: 'BCN', name: 'Barcelona'},
+        {code: 'CDG', name: 'Paris'},
+        {code: 'SXF', name: 'Berlin'}];
 
     console.log($scope.ticket);
+
+    $scope.iATAToName = function (code) {
+        var name = '';
+        var codeName = '';
+        for (var i = 0; i < $scope.airports.length; i++) {
+            if ($scope.airports[i].code === code) {
+                name = $scope.airports[i].name;
+                codeName = $scope.airports[i].code;
+            }
+        }
+        var res = name + "(" + codeName + ")";
+        return res;
+    };
 });
