@@ -6,7 +6,7 @@
 <div ng-controller="reservationCtrl">
     <div class="form-style-8">
         <h2>Reserve Tickets</h2>
-        <form>
+        <form name="frm">
             <div style="color:#ffffff">
                 <label> Flight number: {{ticket.flightNumber}}</label> <br>
                 <label> Departure Airport: {{iATAToName(ticket.origin)}}</label><br>
@@ -20,13 +20,14 @@
             </div>
             <input type="text" name="field1" placeholder="Reservee Name" />
             <input type="text" name="field2" placeholder="Reservee Phone" />
-            <input type="text" name="field3" placeholder="Reservee Email" />
+            <input type="email" name="field3" placeholder="Reservee Email" />
+            <input type="submit" value="Email validater">
 
             <div ng-init="addFields()"></div>
 
             <div id="container" style="color:#ffffff"></div>
             <br><br>
-            <input ng-click="alertBox()" type="button" value="Confirm" />
+            <input ng-click="alertBox()" type="button" value="Submit"/>
         </form>
     </div>
 </div>

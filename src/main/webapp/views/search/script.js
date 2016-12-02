@@ -43,10 +43,10 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                 while (date <= flexdate) {
                     if ($scope.fixedDestination === false) {
                         $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
-                                .success((function (data) {
+                                .success(function (data) {
                                     arr.push(data);
                                 }
-                                ))
+                                )
                                 .error(function () {
                                     $scope.setNoFlights(arr);
                                     return;
