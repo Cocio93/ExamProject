@@ -6,6 +6,7 @@
 package Facades;
 
 import REST.FlightResource;
+import java.text.ParseException;
 
 /**
  *
@@ -15,8 +16,8 @@ public class FacadeTester {
 
     private static String[] baseUrls = {"http://airline-plaul.rhcloud.com/api/flightinfo/"};
     
-    public static void main(String[] args) {
-        FlightResource resource = new FlightResource();
-        System.out.println(resource.getFromToFlights("CPH","STN", "2017-01-19T00:00:00.000Z", 3));
+    public static void main(String[] args) throws ParseException {
+        RESTFacade facade = new RESTFacade();
+        System.out.println(facade.getFromFlightsFlex("CPH","2017-01-17T00:00:00.000Z", "2017-01-19T00:00:00.000Z", 3));
     }
 }
