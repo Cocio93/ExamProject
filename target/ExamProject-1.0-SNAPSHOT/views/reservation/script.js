@@ -64,4 +64,16 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
         }
     };
 
+    $scope.alertBox = function () {
+        if (
+                document.forms['frm'].field1.value === "" ||
+                document.forms['frm'].field2.value === "" ||
+                document.forms['frm'].field3.value === ""
+                ) {
+            alert("Please fill out all the information\n\n");
+            return false;
+        }
+        alert("Your reservation have been submitted!\n\n");
+        return true;
+    };
 });

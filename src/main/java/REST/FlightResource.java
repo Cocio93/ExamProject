@@ -5,6 +5,7 @@
  */
 package REST;
 
+import Facades.RESTFacade;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,48 +24,25 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("flights")
 public class FlightResource {
-    
+
     public FlightResource() {
-    
-}
+
+    }
 
     private String[] baseUrls = {"http://airline-plaul.rhcloud.com/api/flightinfo/"};
-    
+    private RESTFacade facade = new RESTFacade();
+
     @Path("{from}/{date}/{tickets}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson(@PathParam("from") String from, @PathParam("date") String date, @PathParam("tickets") int tickets) {
-        String json = "";
-        for (String baseUrl : baseUrls) {
-            try {
+    public String getFromFlights(@PathParam("from") String from, @PathParam("date") String date, @PathParam("tickets") int tickets) {
+        return facade.getFromFlights(from, date, tickets);
+    }
 
-                URL url = new URL(baseUrl + from + "/" + date + "/" + tickets);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Accept", "application/json");
-
-                if (conn.getResponseCode() != 200) {
-                    throw new RuntimeException("Failed : HTTP error code : "
-                            + conn.getResponseCode());
-                }
-
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        (conn.getInputStream())));
-                
-                String output;
-                while ((output = br.readLine()) != null) {
-                    json += output + "\n";
-                }
-               
-                conn.disconnect();
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-
-            }
-        }
-        return json;
+    @Path("{from}/{to}/{date}/{tickets}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getFromToFlights(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("tickets") int tickets) {
+        return facade.getFromToFlights(from, to, date, tickets);
     }
 }

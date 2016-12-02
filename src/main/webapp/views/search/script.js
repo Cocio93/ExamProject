@@ -43,10 +43,10 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                 while (date <= flexdate) {
                     if ($scope.fixedDestination === false) {
                         $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
-                                .success((function (data) {
+                                .success(function (data) {
                                     arr.push(data);
                                 }
-                                ))
+                                )
                                 .error(function () {
                                     $scope.setNoFlights(arr);
                                     return;
@@ -153,7 +153,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
     }]);
 
 app.factory('TicketFactory', function ($http) {
-    var baseUrl = 'http://airline-plaul.rhcloud.com/api/flightinfo';
+    var baseUrl = '/ExamProject/api/flights';
     return {
         getFromTickets: function (from, date, tickets) {
             return $http({
