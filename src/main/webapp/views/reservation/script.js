@@ -64,4 +64,7 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
         }
     };
 
+    $scope.alertBox = function () {
+        alert("Hello! I am an alert box!");
+    };
 });
