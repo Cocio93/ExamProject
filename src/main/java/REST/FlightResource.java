@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -44,5 +45,12 @@ public class FlightResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getFromToFlights(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("tickets") int tickets) {
         return facade.getFromToFlights(from, to, date, tickets);
+    }
+    
+    @Path("flex/{from}/{startDate}/{endDate}/{tickets}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getFromFlightsFlex(@PathParam("from") String from, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate, @PathParam("tickets") int tickets) throws ParseException {
+        return facade.getFromFlightsFlex(from, startDate, endDate, tickets);
     }
 }
