@@ -18,6 +18,6 @@ public class FacadeTester {
     
     public static void main(String[] args) throws ParseException {
         RESTFacade facade = new RESTFacade();
-        System.out.println(facade.getFromFlightsFlex("CPH","2017-01-17T00:00:00.000Z", "2017-01-19T00:00:00.000Z", 3));
+        System.out.println(facade.getFromFlights("CPH", "2017-01-01T00:00:00.000Z", 3));
     }
 }

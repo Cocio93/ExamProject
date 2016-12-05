@@ -14,14 +14,14 @@ import javax.ws.rs.core.MediaType;
  *
  * @author John
  */
-
 @Path("test")
 public class TestResource {
-    
+
     @Path("hello")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String helloTest() {
         return "Hello from test";
     }
+
 }
