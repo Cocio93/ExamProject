@@ -38,10 +38,8 @@ public class FlightResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getFromFlights(@PathParam("from") String from, @PathParam("date") String date, @PathParam("tickets") int tickets) {
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
         JsonArray searchResponse = facade.getFromFlights(from, date, tickets);
-        JsonArray resultArray = sortJson(searchResponse);
-        String json = gson.toJson(resultArray);
+        String json = sortJson(searchResponse);
         System.out.println(json);
         return json;
     }
@@ -50,17 +48,34 @@ public class FlightResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getFromToFlights(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("tickets") int tickets) {
-        return facade.getFromToFlights(from, to, date, tickets);
+        JsonArray searchResponse = facade.getFromToFlights(from, to, date, tickets);
+        String json = sortJson(searchResponse);
+        System.out.println(json);
+        return json;
     }
 
     @Path("flex/{from}/{startDate}/{endDate}/{tickets}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getFromFlightsFlex(@PathParam("from") String from, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate, @PathParam("tickets") int tickets) throws ParseException {
-        return facade.getFromFlightsFlex(from, startDate, endDate, tickets);
+        JsonArray searchResponse = facade.getFromFlightsFlex(from, startDate, endDate, tickets);
+        String json = sortJson(searchResponse);
+        System.out.println(json);
+        return json;
     }
 
-    private JsonArray sortJson(JsonArray array) {
+    @Path("flex/{from}/{to}/{startDate}/{endDate}/{tickets}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getFromToFlightsFlex(@PathParam("from") String from, @PathParam("to") String to, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate, @PathParam("tickets") int tickets) throws ParseException {
+        JsonArray searchResponse = facade.getFromToFlightsFlex(from, to, startDate, endDate, tickets);
+        String json = sortJson(searchResponse);
+        System.out.println(json);
+        return json;
+    }
+
+    private String sortJson(JsonArray array) {
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
         JsonArray result = new JsonArray();
         for (JsonElement obj : array) {
             JsonObject jsonObj = obj.getAsJsonObject();
@@ -73,6 +88,7 @@ public class FlightResource {
             }
 
         }
-        return result;
+        String json = gson.toJson(result);
+        return json;
     }
 }

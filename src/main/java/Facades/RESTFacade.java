@@ -46,28 +46,42 @@ public class RESTFacade {
         return objects;
     }
 
-    public String getFromFlightsFlex(String from, String fromDate, String toDate, int tickets) throws ParseException {
+    public JsonArray getFromFlightsFlex(String from, String fromDate, String toDate, int tickets) throws ParseException {
         LocalDate start = isoToLocalDate(fromDate);
         LocalDate end = isoToLocalDate(toDate);
-        String json = "";
+        end = end.plusDays(1);
 
         for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
             String isoDate = localDateToIso(date);
             String endUrl = from + "/" + isoDate + "/" + tickets;
-            json += setResultArrayFromUrl(endUrl);
+            setResultArrayFromUrl(endUrl);
         }
-        String prettyJson = gson.toJson(resultArray);
+        JsonArray objects = resultArray;
         resultArray = new JsonArray();
-        return prettyJson;
+        return objects;
     }
 
-    public String getFromToFlights(String from, String to, String date, int tickets) {
+    public JsonArray getFromToFlights(String from, String to, String date, int tickets) {
         String endUrl = from + "/" + to + "/" + date + "/" + tickets;
         setResultArrayFromUrl(endUrl);
-        String prettyJson = gson.toJson(resultArray);
+        JsonArray objects = resultArray;
         resultArray = new JsonArray();
-        return prettyJson;
+        return objects;
+    }
 
+    public JsonArray getFromToFlightsFlex(String from, String to, String fromDate, String toDate, int tickets) throws ParseException {
+        LocalDate start = isoToLocalDate(fromDate);
+        LocalDate end = isoToLocalDate(toDate);
+        end = end.plusDays(1);
+
+        for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
+            String isoDate = localDateToIso(date);
+            String endUrl = from + "/" + to + "/" + isoDate + "/" + tickets;
+            setResultArrayFromUrl(endUrl);
+        }
+        JsonArray objects = resultArray;
+        resultArray = new JsonArray();
+        return objects;
     }
 
     private String setResultArrayFromUrl(String endUrl) {
