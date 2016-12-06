@@ -13,7 +13,6 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
         {code: 'BCN', name: 'Barcelona'},
         {code: 'CDG', name: 'Paris'},
         {code: 'SXF', name: 'Berlin'}];
-
     $scope.addFields = function () {
         var seatNum = $scope.ticket.numberOfSeats;
         var container = document.getElementById("container");
@@ -25,19 +24,17 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
             var inputFirst = document.createElement("input");
             inputFirst.type = "text";
             inputFirst.placeholder = "First Name";
-            inputFirst.name = "first";
+            inputFirst.name = "field";
             container.appendChild(inputFirst);
-
             var inputLast = document.createElement("input");
             inputLast.type = "text";
             inputLast.placeholder = "Last Name";
-            inputLast.name = "last";
+            inputLast.name = "field";
             container.appendChild(inputLast);
             //container.appendChild(document.createElement("br"));
         }
         ;
     };
-
     $scope.iATAToName = function (code) {
         var name = '';
         var codeName = '';
@@ -63,15 +60,13 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
             return hours + " " + hourString + " and " + minutes + " Min";
         }
     };
-
     $scope.alertBox = function () {
-        if (
-                document.forms['frm'].field1.value === "" ||
-                document.forms['frm'].field2.value === "" ||
-                document.forms['frm'].field3.value === ""
-                ) {
-            alert("Please fill out all the information\n\n");
-            return false;
+        var allTbs = document.getElementsByName("field");
+        for (var i = 0; i < allTbs.length; i++) {
+            if (allTbs[i].value === "") {
+                alert("Please fill out all the information\n\n");
+                return false;
+            }
         }
         alert("Your reservation have been submitted!\n\n");
         return true;
