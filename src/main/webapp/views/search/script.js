@@ -34,11 +34,6 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
             flexDate.setDate(flexDate.getDate() + 1);
 
 
-            //Saving data to the service
-            $scope.reservationSetData = function (flight) {
-                reservationService.setData(flight);
-            };
-
             if ($scope.flextoggle === true) {
                 if ($scope.fixedDestination === false) {
                     TicketFactory.getFromTicketsFlex(from, date, flexDate, tickets)
@@ -139,6 +134,10 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
             }
             var res = name + "(" + codeName + ")";
             return res;
+        };
+        //Saving data to the service
+        $scope.reservationSetData = function (flight) {
+            reservationService.setData(flight);
         };
     }]);
 
