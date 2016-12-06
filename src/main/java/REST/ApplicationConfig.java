@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(REST.FlightResource.class);
+        resources.add(REST.TestResource.class);
     }
     
 }

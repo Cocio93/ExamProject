@@ -18,7 +18,6 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
         $scope.noFlights = false;
 
         $scope.getSearchResults = function () {
-            $scope.noFlights = false;
             if ($scope.inputErrors() === true) {
                 return;
             }
