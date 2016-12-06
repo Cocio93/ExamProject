@@ -6,12 +6,13 @@
 package REST;
 
 import Facades.RESTFacade;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.text.ParseException;
+import java.util.Map;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -37,7 +38,12 @@ public class FlightResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getFromFlights(@PathParam("from") String from, @PathParam("date") String date, @PathParam("tickets") int tickets) {
-        return facade.getFromFlights(from, date, tickets);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
+        JsonArray searchResponse = facade.getFromFlights(from, date, tickets);
+        JsonArray resultArray = sortJson(searchResponse);
+        String json = gson.toJson(resultArray);
+        System.out.println(json);
+        return json;
     }
 
     @Path("{from}/{to}/{date}/{tickets}")
@@ -46,11 +52,27 @@ public class FlightResource {
     public String getFromToFlights(@PathParam("from") String from, @PathParam("to") String to, @PathParam("date") String date, @PathParam("tickets") int tickets) {
         return facade.getFromToFlights(from, to, date, tickets);
     }
-    
+
     @Path("flex/{from}/{startDate}/{endDate}/{tickets}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getFromFlightsFlex(@PathParam("from") String from, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate, @PathParam("tickets") int tickets) throws ParseException {
         return facade.getFromFlightsFlex(from, startDate, endDate, tickets);
+    }
+
+    private JsonArray sortJson(JsonArray array) {
+        JsonArray result = new JsonArray();
+        for (JsonElement obj : array) {
+            JsonObject jsonObj = obj.getAsJsonObject();
+            String airline = jsonObj.get("airline").getAsString();
+            JsonArray flights = jsonObj.getAsJsonArray("flights");
+            for (JsonElement flight : flights) {
+                JsonObject flightObj = flight.getAsJsonObject();
+                flightObj.addProperty("airline", airline);
+                result.add(flightObj);
+            }
+
+        }
+        return result;
     }
 }

@@ -5,6 +5,11 @@
  */
 package Facades;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,17 +28,22 @@ import java.util.Date;
  */
 public class RESTFacade {
 
+    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").setPrettyPrinting().create();
     DateFormat sdfISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    JsonArray resultArray = new JsonArray();
 
     public RESTFacade() {
 
     }
 
-    private final String[] baseUrls = {"http://localhost:8084/RESTAirline/api/flights/"};
+    private final String[] baseUrls = {"http://airline-plaul.rhcloud.com/api/flightinfo/", "http://airline-plaul.rhcloud.com/api/flightinfo/"};
 
-    public String getFromFlights(String from, String date, int tickets) {
+    public JsonArray getFromFlights(String from, String date, int tickets) {
         String endUrl = from + "/" + date + "/" + tickets;
-        return getDataFromUrl(endUrl);
+        setResultArrayFromUrl(endUrl);
+        JsonArray objects = resultArray;
+        resultArray = new JsonArray();
+        return objects;
     }
 
     public String getFromFlightsFlex(String from, String fromDate, String toDate, int tickets) throws ParseException {
@@ -44,18 +54,25 @@ public class RESTFacade {
         for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
             String isoDate = localDateToIso(date);
             String endUrl = from + "/" + isoDate + "/" + tickets;
-            json += getDataFromUrl(endUrl);
+            json += setResultArrayFromUrl(endUrl);
         }
-        return json;
+        String prettyJson = gson.toJson(resultArray);
+        resultArray = new JsonArray();
+        return prettyJson;
     }
 
     public String getFromToFlights(String from, String to, String date, int tickets) {
         String endUrl = from + "/" + to + "/" + date + "/" + tickets;
-        return getDataFromUrl(endUrl);
+        setResultArrayFromUrl(endUrl);
+        String prettyJson = gson.toJson(resultArray);
+        resultArray = new JsonArray();
+        return prettyJson;
+
     }
 
-    private String getDataFromUrl(String endUrl) {
-        String json = "";
+    private String setResultArrayFromUrl(String endUrl) {
+
+        JsonArray results = new JsonArray();
         for (String baseUrl : baseUrls) {
             try {
                 URL url = new URL(baseUrl + endUrl);
@@ -64,15 +81,20 @@ public class RESTFacade {
                 conn.setRequestProperty("Accept", "application/json");
 
                 if (conn.getResponseCode() == 200) {
+                    String json = "";
                     BufferedReader br = new BufferedReader(new InputStreamReader(
                             (conn.getInputStream())));
                     String output;
                     while ((output = br.readLine()) != null) {
                         json += output + "\n";
                     }
-                    
+
+                    JsonElement element = gson.fromJson(json, JsonElement.class);
+                    JsonObject jsonObj = element.getAsJsonObject();
+                    resultArray.add(jsonObj);
+
                 } else {
-                    json = "Failed : HTTP error code : "
+                    String json = "Failed : HTTP error code : "
                             + conn.getResponseCode();
                 }
                 conn.disconnect();
@@ -81,7 +103,8 @@ public class RESTFacade {
                 e.printStackTrace();
             }
         }
-        return json;
+        String prettyJson = gson.toJson(results);
+        return prettyJson;
     }
 
     private LocalDate isoToLocalDate(String date) throws ParseException {

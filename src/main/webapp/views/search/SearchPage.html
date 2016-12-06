@@ -65,7 +65,7 @@
                 <th><span> Total Price </span></th>
                 <th><span> Reserve Tickets</span></th>
                 </thead>
-                <tbody ng-repeat="date in searchResults| orderBy: 'flights[0].date'">
+<!--                <tbody ng-repeat="date in searchResults| orderBy: 'flights[0].date'">
                     <tr>
                         <td class="dateheader" colspan="9" style="text-align: center" >
                             Flights for {{date.flights[0].date| date : 'longDate'}}
@@ -73,6 +73,20 @@
                     </tr>
                     <tr ng-repeat="flight in date.flights| orderBy: 'date'" >
                         <td> {{date.airline}}</td>
+                        <td> {{flight.flightNumber}}</td>
+                        <td> {{iATAToName(flight.origin)}}</td>
+                        <td> {{flight.date| date : "short"}}</td>
+                        <td> {{iATAToName(flight.destination)}}</td>
+                        <td> {{minutesToHours(flight.traveltime)}}</td>
+                        <td> {{flight.numberOfSeats}}</td>
+                        <td> {{flight.totalPrice| currency : "Kr. "}}</td>
+                        <td  ng-click="reservationSetData(flight)"><a href="#/reservation" >Reserve tickets</a></td>
+                    </tr>
+                </tbody>-->
+
+                <tbody>
+                    <tr ng-repeat="flight in searchResults | orderBy: 'date'" >
+                        <td> {{flight.airline}}</td>
                         <td> {{flight.flightNumber}}</td>
                         <td> {{iATAToName(flight.origin)}}</td>
                         <td> {{flight.date| date : "short"}}</td>

@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Facades;
+package REST;
 
-import REST.FlightResource;
 import java.text.ParseException;
 
 /**
  *
  * @author John
  */
-public class FacadeTester {
+public class ResourceTester {
 
     public static void main(String[] args) throws ParseException {
-        RESTFacade facade = new RESTFacade();
-        System.out.println(facade.getFromFlights("CPH", "2017-01-01T00:00:00.000Z", 3));
+        FlightResource resource = new FlightResource();
+        String t = resource.getFromFlights("CPH", "2017-01-01T00:00:00.000Z", 3);
     }
 }

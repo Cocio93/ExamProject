@@ -10,7 +10,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', function (TicketFactory, $scope, reservationService) {
         $scope.airports = [{code: 'CPH', name: 'Copenhagen'}, {code: 'STN', name: 'London'}, {code: 'BCN', name: 'Barcelona'}, {code: 'CDG', name: 'Paris'}, {code: 'SXF', name: 'Berlin'}];
         $scope.searchParams = {from: '', to: '', date: '', tickets: 1, flexdate: ''};
-        $scope.searchResults = [];
+        $scope.searchResults;
         $scope.isSearched = false;
         $scope.flextoggle = false;
         $scope.errorOccured = false;
@@ -44,7 +44,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                     if ($scope.fixedDestination === false) {
                         $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
                                 .success(function (data) {
-                                    arr.push(data);
+                                    $scope.searchResults = data;
                                 }
                                 )
                                 .error(function () {
@@ -54,7 +54,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                     } else if ($scope.fixedDestination === true) {
                         $scope.searchResults = TicketFactory.getFromToTickets(from, to, date, tickets)
                                 .success((function (data) {
-                                    arr.push(data);
+                                    $scope.searchResults = data;
                                 }))
                                 .error(function () {
                                     $scope.setNoFlights(arr);
@@ -67,9 +67,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                 if ($scope.fixedDestination === false) {
                     $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
                             .success(function (data) {
-                                var arr = [];
-                                arr.push(data);
-                                $scope.searchResults = arr;
+                                $scope.searchResults = data;
                             })
                             .error(function () {
                                 $scope.isSearched = false;
@@ -79,9 +77,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                 } else if ($scope.fixedDestination === true) {
                     $scope.searchResults = TicketFactory.getFromToTickets(from, to, date, tickets)
                             .success((function (data) {
-                                var arr = [];
-                                arr.push(data);
-                                $scope.searchResults = arr;
+                                $scope.searchResults = data;
                             }))
                             .error(function () {
                                 $scope.isSearched = false;
