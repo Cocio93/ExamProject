@@ -105,6 +105,7 @@ public class RESTFacade {
 
                     JsonElement element = gson.fromJson(json, JsonElement.class);
                     JsonObject jsonObj = element.getAsJsonObject();
+                    jsonObj.addProperty("baseUrl", baseUrl);
                     resultArray.add(jsonObj);
 
                 } else {

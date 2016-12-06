@@ -82,8 +82,10 @@ public class FlightResource {
             String airline = jsonObj.get("airline").getAsString();
             JsonArray flights = jsonObj.getAsJsonArray("flights");
             for (JsonElement flight : flights) {
+                
                 JsonObject flightObj = flight.getAsJsonObject();
                 flightObj.addProperty("airline", airline);
+                flightObj.addProperty("baseUrl", jsonObj.get("baseUrl").getAsString());
                 result.add(flightObj);
             }
 
