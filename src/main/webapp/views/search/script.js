@@ -26,50 +26,42 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
             var tickets = $scope.searchParams.tickets;
             var to = $scope.searchParams.to;
             var from = $scope.searchParams.from;
-            var date = new Date();
-            date.setTime($scope.searchParams.date);
-            date.setDate(date.getDate() + 1);
-            var flexdate = new Date();
-            flexdate.setTime($scope.searchParams.flexdate);
-            flexdate.setDate(flexdate.getDate() + 1);
-
+            var date = $scope.searchParams.date;
+            var flexDate = $scope.searchParams.flexdate;
             //Saving data to the service
             $scope.reservationSetData = function (flight) {
                 reservationService.setData(flight);
             };
 
             if ($scope.flextoggle === true) {
-                var arr = [];
-                while (date <= flexdate) {
-                    if ($scope.fixedDestination === false) {
-                        $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
-                                .success(function (data) {
-                                    $scope.searchResults = data;
-                                }
-                                )
-                                .error(function () {
-                                    $scope.setNoFlights(arr);
-                                    return;
-                                });
-                    } else if ($scope.fixedDestination === true) {
-                        $scope.searchResults = TicketFactory.getFromToTickets(from, to, date, tickets)
-                                .success((function (data) {
-                                    $scope.searchResults = data;
-                                }))
-                                .error(function () {
-                                    $scope.setNoFlights(arr);
-                                    return;
-                                });
-                    }
-                    date.setDate(date.getDate() + 1);
+                if ($scope.fixedDestination === false) {
+                    $scope.searchResults = TicketFactory.getFromTicketsFlex(from, date, flexDate, tickets)
+                            .success(function (data) {
+                                $scope.searchResults = data;
+                            }
+                            )
+                            .error(function (error) {
+                                return;
+                            });
+                } else if ($scope.fixedDestination === true) {
+                    $scope.searchResults = TicketFactory.getFromToTicketsFlex(from, to, date, flexDate, tickets)
+                            .success((function (data) {
+                                $scope.searchResults = data;
+                            }))
+                            .error(function (error) {
+                                return;
+                            });
                 }
+
             } else if ($scope.flextoggle === false) {
                 if ($scope.fixedDestination === false) {
                     $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
                             .success(function (data) {
                                 $scope.searchResults = data;
+                                $scope.noFlights = false;
+                                $scope.isSearched = true;
                             })
-                            .error(function () {
+                            .error(function (error) {
                                 $scope.isSearched = false;
                                 $scope.noFlights = true;
                                 return;
@@ -78,8 +70,10 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                     $scope.searchResults = TicketFactory.getFromToTickets(from, to, date, tickets)
                             .success((function (data) {
                                 $scope.searchResults = data;
+                                $scope.noFlights = false;
+                                $scope.isSearched = true;
                             }))
-                            .error(function () {
+                            .error(function (error) {
                                 $scope.isSearched = false;
                                 $scope.noFlights = true;
                                 return;
@@ -89,7 +83,6 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
 
             $scope.noFlights = false;
             $scope.isSearched = true;
-            $scope.searchResults = arr;
         };
 
         $scope.inputErrors = function () {
@@ -160,6 +153,18 @@ app.factory('TicketFactory', function ($http) {
         getFromToTickets: function (from, to, date, tickets) {
             return $http({
                 url: baseUrl + '/' + from + '/' + to + "/" + date.toISOString() + '/' + tickets,
+                method: 'get'
+            });
+        },
+        getFromTicketsFlex: function (from, fromDate, toDate, tickets) {
+            return $http({
+                url: baseUrl + '/flex/' + from + '/' + fromDate.toISOString() + "/" + toDate.toISOString() + '/' + tickets,
+                method: 'get'
+            });
+        },
+        getFromToTicketsFlex: function (from, to, fromDate, toDate, tickets) {
+            return $http({
+                url: baseUrl + '/flex/' + from + "/" + to + '/' + fromDate.toISOString() + "/" + toDate.toISOString() + '/' + tickets,
                 method: 'get'
             });
         }
