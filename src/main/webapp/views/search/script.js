@@ -10,7 +10,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', function (TicketFactory, $scope, reservationService) {
         $scope.airports = [{code: 'CPH', name: 'Copenhagen'}, {code: 'STN', name: 'London'}, {code: 'BCN', name: 'Barcelona'}, {code: 'CDG', name: 'Paris'}, {code: 'SXF', name: 'Berlin'}];
         $scope.searchParams = {from: '', to: '', date: '', tickets: 1, flexdate: ''};
-        $scope.searchResults;
+        $scope.searchResults = [];
         $scope.isSearched = false;
         $scope.flextoggle = false;
         $scope.errorOccured = false;
@@ -18,7 +18,6 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
         $scope.noFlights = false;
 
         $scope.getSearchResults = function () {
-            $scope.searchResults = [];
             if ($scope.inputErrors() === true) {
                 return;
             }
@@ -26,8 +25,14 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
             var tickets = $scope.searchParams.tickets;
             var to = $scope.searchParams.to;
             var from = $scope.searchParams.from;
-            var date = $scope.searchParams.date;
-            var flexDate = $scope.searchParams.flexdate;
+            var date = new Date();
+            date.setTime($scope.searchParams.date);
+            date.setDate(date.getDate() + 1);
+            var flexDate = new Date();
+            flexDate.setTime($scope.searchParams.flexdate);
+            flexDate.setDate(flexDate.getDate() + 1);
+            
+            
             //Saving data to the service
             $scope.reservationSetData = function (flight) {
                 reservationService.setData(flight);
@@ -38,8 +43,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                     $scope.searchResults = TicketFactory.getFromTicketsFlex(from, date, flexDate, tickets)
                             .success(function (data) {
                                 $scope.searchResults = data;
-                            }
-                            )
+                            })
                             .error(function (error) {
                                 return;
                             });
@@ -58,8 +62,6 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                     $scope.searchResults = TicketFactory.getFromTickets(from, date, tickets)
                             .success(function (data) {
                                 $scope.searchResults = data;
-                                $scope.noFlights = false;
-                                $scope.isSearched = true;
                             })
                             .error(function (error) {
                                 $scope.isSearched = false;
@@ -70,8 +72,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                     $scope.searchResults = TicketFactory.getFromToTickets(from, to, date, tickets)
                             .success((function (data) {
                                 $scope.searchResults = data;
-                                $scope.noFlights = false;
-                                $scope.isSearched = true;
+
                             }))
                             .error(function (error) {
                                 $scope.isSearched = false;
@@ -81,8 +82,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
                 }
             }
 
-            $scope.noFlights = false;
-            $scope.isSearched = true;
+            $scope.setNoFlights($scope.searchResults);
         };
 
         $scope.inputErrors = function () {
@@ -104,7 +104,7 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
         };
 
         $scope.setNoFlights = function (arr) {
-            if (arr === [] || arr === null || arr === "" || arr.length === 0) {
+            if (arr.length === 0) {
                 $scope.isSearched = false;
                 $scope.noFlights = true;
             } else {

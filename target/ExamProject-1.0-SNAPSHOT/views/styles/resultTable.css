@@ -1,7 +1,7 @@
 table {
     border-collapse: collapse;
     margin: 50px auto;
-    width: 900px;
+    width: 1000px;
     border: 1px solid black;
     overflow: scroll;
 }
