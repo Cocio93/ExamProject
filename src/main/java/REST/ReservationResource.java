@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author John
  */
-@Path("reservation/")
+@Path("reservation")
 public class ReservationResource {
 
     @POST
