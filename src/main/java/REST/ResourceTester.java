@@ -16,5 +16,8 @@ public class ResourceTester {
     public static void main(String[] args) throws ParseException {
         FlightResource resource = new FlightResource();
         String t = resource.getFromFlights("CPH","2017-01-1T00:00:00.000Z" , 3);
+        
+        ReservationResource reservationRe = new ReservationResource();
+        
     }
 }

@@ -9,7 +9,7 @@ package Entities;
  *
  * @author John
  */
-public class Reservation {
+public class ReservationRequest {
 
     String flightID;
     int numberOfSeats;
@@ -17,15 +17,15 @@ public class Reservation {
     String reservePhone;
     String reserveeEmail;
     Passenger[] passengers;
+    String baseUrl;
 
-//    public Reservation(String flightID, int numberOfseats, String reserveeName, String reservePhone, String reserveeEmail, Passenger[] passengers) {
-//        this.flightID = flightID;
-//        this.numberOfSeats = numberOfseats;
-//        this.reserveeName = reserveeName;
-//        this.reservePhone = reservePhone;
-//        this.reserveeEmail = reserveeEmail;
-//        this.passengers = passengers;
-//    }
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
 
     public String getFlightID() {
         return flightID;
