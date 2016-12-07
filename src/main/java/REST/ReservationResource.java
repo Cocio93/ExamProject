@@ -8,6 +8,9 @@ package REST;
 import Entities.ReservationRequest;
 import Facades.ReservationFacade;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.IOException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -26,10 +29,16 @@ public class ReservationResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String makeReservation(ReservationRequest request) throws IOException {
+    public String makeReservation(String info) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonObject o = new JsonParser().parse(info).getAsJsonObject();
+        ReservationRequest request = gson.fromJson(o, ReservationRequest.class);
+        
         ReservationFacade facade = new ReservationFacade();
-        Gson gson = new Gson();
-        return facade.sendRequest(request);
+        String response = facade.sendRequest(request);
+        JsonObject prettyObj = new JsonParser().parse(response).getAsJsonObject();
+        return gson.toJson(prettyObj);
+
     }
 
 }
