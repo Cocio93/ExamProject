@@ -8,10 +8,13 @@ app.config(['$routeProvider', function ($routeProvider) {
     }]);
 app.controller('reservationCtrl', ['$scope', 'reservationService', '$compile', 'resService', function ($scope, reservationService, $compile, resService) {
         $scope.ticket = reservationService.getData();
+        $scope.ticketResult = '';
         $scope.reservationRequest = {flightID: '', numberOfSeats: '', 
             reserveeName: '', reservePhone: '', reserveeEmail: '', passengers: '', baseUrl: ''};
         $scope.reserveeInfo = [{reserveeName: '', reserveePhone: '', reserveeEmail: ''}];
-
+        $scope.fieldsMissing = false;
+        $scope.searchSuccess = false;
+        
         $scope.airports = [
             {code: 'CPH', name: 'Copenhagen'},
             {code: 'STN', name: 'London'},
@@ -52,9 +55,11 @@ app.controller('reservationCtrl', ['$scope', 'reservationService', '$compile', '
             var name = '';
             var codeName = '';
             for (var i = 0; i < $scope.airports.length; i++) {
-                if ($scope.airports[i].code === code) {
+                if ($scope.airports[i].code === code.toUpperCase()) {
                     name = $scope.airports[i].name;
                     codeName = $scope.airports[i].code;
+                } else {
+                    codeName = code;
                 }
             }
             var res = name + "(" + codeName + ")";
@@ -74,12 +79,13 @@ app.controller('reservationCtrl', ['$scope', 'reservationService', '$compile', '
             }
         };
         $scope.resRequest = function () {
+            $scope.fieldsMissing = false;
             console.log("Making Reservation Request");
             var allTbs = document.getElementsByName("field");
             for (var i = 0; i < allTbs.length; i++) {
                 if (allTbs[i].value === "") {
-                    alert("Please fill out all the information\n\n");
-                    return false;
+                    $scope.fieldsMissing = true;
+                    return;
                 }
             }
             $scope.passengers = [];
@@ -101,11 +107,8 @@ app.controller('reservationCtrl', ['$scope', 'reservationService', '$compile', '
             resService.submit($scope.reservationRequest)
                     .success(function (data) {
                         console.log(data);
-                        if (data.success === true) {
-                            console.log("yay");
-                        } else {
-                            console.log("nay");
-                        }
+                        $scope.searchSuccess = true;
+                        $scope.ticketResult = data;
                     });
         };
     }]);

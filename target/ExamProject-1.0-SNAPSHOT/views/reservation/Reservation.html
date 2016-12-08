@@ -3,11 +3,11 @@
     <link href="views/styles/resultTable.css" rel="stylesheet" type="text/css"/>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
-<div ng-controller="reservationCtrl">
-    <div class="form-style-8">
+<div>
+    <div class="form-style-8" ng-show="!searchSuccess">
         <h2>Reserve Tickets</h2>
         <form name="frm">
-            <div style="color:#ffffff">
+            <div style="color:#ffffff; font-size: 16px">
                 <label> Flight number: {{ticket.flightNumber}}</label> <br>
                 <label> Departure Airport: {{iATAToName(ticket.origin)}}</label><br>
                 <label> Departure Date: {{ticket.date| date : "short"}}</label><br>
@@ -31,6 +31,35 @@
     </div>
 </div>
 
-   
+<div ng-show="searchSuccess" class="container">
+
+    <h2 class="form-style-inline" style="color: white; text-align: center; text-transform: uppercase">
+        Successfully reserved following tickets
+    </h2>
+
+
+    <div class="form-style-inline" ng-repeat="p in ticketResult.passengers" style="color: white; height: 150px">
+        <div class="col-md-6">
+            <label style="font-size: 17px">Passenger Name:&nbsp;{{p.lastName}},&nbsp;{{p.firstName}}</label><br>
+            <label style="font-size: 17px">Reservee Name:&nbsp;{{ticketResult.reserveeName}}</label><br>
+            <label style="font-size: 17px">Date:&nbsp;{{ticketResult.date}}</label>
+        </div>
+        <div class="col-md-6">
+            <label style="font-size: 17px">Route:&nbsp;{{iATAToName(ticketResult.origin)}}&nbsp; - &nbsp; {{iATAToName(ticketResult.destination)}}</label><br>
+            <label style="font-size: 17px">Flight Number:&nbsp;{{ticketResult.flightNumber}}</label><br>
+            <label style="font-size: 17px">Flight Time:&nbsp;{{ticketResult.flightTime}}&nbsp;Minutes</label>
+        </div>  
+    </div>
+</div>
+
+
+<div class="form-style-8" ng-show="fieldsMissing">
+    <div style="text-align: center; color: white; font-size: 20px">
+        All fields need to be filled out
+    </div>
+</div>   
+
+
+
 
 

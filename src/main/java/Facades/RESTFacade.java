@@ -53,7 +53,7 @@ public class RESTFacade {
 
         for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
             String isoDate = localDateToIso(date);
-            String endUrl = from + "/" + isoDate + "/" + tickets;
+            String endUrl = "flights/" +  from + "/" + isoDate + "/" + tickets;
             setResultArrayFromUrl(endUrl);
         }
         JsonArray objects = resultArray;
@@ -62,7 +62,7 @@ public class RESTFacade {
     }
 
     public JsonArray getFromToFlights(String from, String to, String date, int tickets) {
-        String endUrl = from + "/" + to + "/" + date + "/" + tickets;
+        String endUrl = "flights/" +  from + "/" + to + "/" + date + "/" + tickets;
         setResultArrayFromUrl(endUrl);
         JsonArray objects = resultArray;
         resultArray = new JsonArray();
@@ -76,7 +76,7 @@ public class RESTFacade {
 
         for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
             String isoDate = localDateToIso(date);
-            String endUrl = from + "/" + to + "/" + isoDate + "/" + tickets;
+            String endUrl = "flights/" + from + "/" + to + "/" + isoDate + "/" + tickets;
             setResultArrayFromUrl(endUrl);
         }
         JsonArray objects = resultArray;

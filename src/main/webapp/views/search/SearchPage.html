@@ -70,11 +70,11 @@
                         <td> {{flight.airline}}</td>
                         <td> {{flight.flightNumber}}</td>
                         <td> {{iATAToName(flight.origin)}}</td>
-                        <td> {{flight.date| date : "longDate"}}</td>
+                        <td> {{flight.date| date : "short"}}</td>
                         <td> {{iATAToName(flight.destination)}}</td>
                         <td> {{minutesToHours(flight.traveltime)}}</td>
                         <td> {{flight.numberOfSeats}}</td>
-                        <td> {{flight.totalPrice| currency : "Kr. "}}</td>
+                        <td> {{flight.totalPrice| currency : "Eur "}}</td>
                         <td  ng-click="reservationSetData(flight)"><a href="#/reservation" >Reserve tickets</a></td>
                     </tr>
                 </tbody>
