@@ -66,5 +66,4 @@ app.service("signUpService", function ($http) {
             });
         }
     };
-
 });

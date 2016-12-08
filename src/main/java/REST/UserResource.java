@@ -1,5 +1,6 @@
 package REST;
 
+import Entities.LoginResponse;
 import Facades.UserFacade;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -53,10 +54,9 @@ public class UserResource {
             result = false;
             throw e;
         }
-        
-        String jsonResult = "{success: " + result + "}";
-        System.out.println(jsonResult);
-        return jsonResult;
+        LoginResponse response = new LoginResponse(result);
+        String json = gson.toJson(response);
+        return json;
     }
 
 }

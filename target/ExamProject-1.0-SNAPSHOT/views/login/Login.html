@@ -5,10 +5,28 @@
 <div class="form-style-8">
   <h2>Login to your account</h2>
   <form>
-    <input type="text" name="field1" placeholder="Enter Username" />
-    <input type="password" name="field2" placeholder="Enter Password" />
-    <input type="button" value="Sign In" />
+    <input type="text" name="field1" placeholder="Enter Username" ng-model="userInfo.userName" />
+    <input type="password" name="field2" placeholder="Enter Password" ng-model="userInfo.password"/>
+    <input type="button" value="Sign In" ng-click="login()"/>
   </form>
+</div>
+
+<div class="form-style-8" ng-show="!allFieldsFilled">
+    <div style="text-align: center; color: white; font-size: 20px">
+        All fields need to be filled!
+    </div>
+</div>
+
+<div class="form-style-8" ng-show="loggedIn">
+    <div style="text-align: center; color: white; font-size: 20px">
+        You successfully logged in!
+    </div>
+</div>
+
+<div class="form-style-8" ng-show="wrongInfo">
+    <div style="text-align: center; color: white; font-size: 20px">
+        Username or Password is incorrect
+    </div>
 </div>
 
 
