@@ -5,14 +5,18 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'views/reservation/Reservation.html'
         });
     }]);
-app.controller('reservationCtrl', function ($scope, reservationService) {
+app.controller('reservationCtrl', function ($scope, reservationService, $compile) {
     $scope.ticket = reservationService.getData();
+
+    $scope.reserveeInfo = [{reserveeName: '', reserveePhone: '', reserveeEmail: ''}];
+
     $scope.airports = [
         {code: 'CPH', name: 'Copenhagen'},
         {code: 'STN', name: 'London'},
         {code: 'BCN', name: 'Barcelona'},
         {code: 'CDG', name: 'Paris'},
         {code: 'SXF', name: 'Berlin'}];
+
     $scope.addFields = function () {
         var seatNum = $scope.ticket.numberOfSeats;
         var container = document.getElementById("container");
@@ -25,13 +29,20 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
             inputFirst.type = "text";
             inputFirst.placeholder = "First Name";
             inputFirst.name = "field";
+            inputFirst.setAttribute("ng-model", "pass" + i + ".firstName");
+//          inputFirst.setAttribute("ng-model", "passengers.firstName");
             container.appendChild(inputFirst);
+            $compile(inputFirst)($scope);
+
             var inputLast = document.createElement("input");
             inputLast.type = "text";
             inputLast.placeholder = "Last Name";
             inputLast.name = "field";
+            inputLast.setAttribute("ng-model", "pass" + i + ".lastName");
+//            inputLast.setAttribute("ng-model", "passengers.lastName");
             container.appendChild(inputLast);
-            //container.appendChild(document.createElement("br"));
+            $compile(inputLast)($scope);
+
         }
         ;
     };
@@ -60,7 +71,7 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
             return hours + " " + hourString + " and " + minutes + " Min";
         }
     };
-    $scope.alertBox = function () {
+    $scope.resRequest = function () {
         var allTbs = document.getElementsByName("field");
         for (var i = 0; i < allTbs.length; i++) {
             if (allTbs[i].value === "") {
@@ -68,7 +79,32 @@ app.controller('reservationCtrl', function ($scope, reservationService) {
                 return false;
             }
         }
-        alert("Your reservation have been submitted!\n\n");
-        return true;
+        $scope.passengers = [];
+        for (var i = 0; i < $scope.ticket.numberOfSeats; i++) {
+            var iString = "pass" + i.toString();
+            $scope.passengers.push(
+                    $scope[iString]
+                    );
+        }
+
+
+        var data = {
+            flightID: $scope.ticket.FlightID,
+            numberOfSeats: $scope.ticket.numberOfSeats,
+            reserveeName: $scope.reserveeInfo.reserveeName,
+            reservePhone: $scope.reserveeInfo.reserveePhone,
+            reserveeEmail: $scope.reserveeInfo.reserveeEmail,
+            passengers: $scope.passengers,
+            baseUrl: $scope.ticket.baseUrl
+        };
+
+        console.log(data);
+//        $.ajax({
+//            type: "POST",
+//            url: "ExamProject/api/reservation",
+//            processData: false,
+//            contentType: 'application/json',
+//            data: JSON.stringify(data)
+//        });
     };
 });

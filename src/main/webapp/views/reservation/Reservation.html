@@ -18,15 +18,15 @@
 
                 <label>Reservee Information </label>
             </div>
-            <input type="text" name="field" placeholder="Reservee Name" />
-            <input type="text" name="field" placeholder="Reservee Phone" />
-            <input type="text" name="field" placeholder="Reservee Email" />
+            <input ng-model="reserveeInfo.reserveeName" type="text" name="field" placeholder="Reservee Name" />
+            <input ng-model="reserveeInfo.reserveePhone" type="text" name="field" placeholder="Reservee Phone" />
+            <input ng-model="reserveeInfo.reserveeEmail" type="text" name="field" placeholder="Reservee Email" />
 
             <div ng-init="addFields()"></div>
 
             <div id="container" style="color:#ffffff"></div>
             <br><br>
-            <input ng-click="alertBox()" type="button" value="Submit"/>
+            <input ng-click="resRequest()" type="button" value="Submit"/>
         </form>
     </div>
 </div>
