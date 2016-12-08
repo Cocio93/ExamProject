@@ -2,7 +2,8 @@ var app = angular.module('myApp.reservationModule', ['ngRoute']);
 
 app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/reservation', {
-            templateUrl: 'views/reservation/Reservation.html'
+            templateUrl: 'views/reservation/Reservation.html',
+            controller: 'reservationCtrl'
         });
     }]);
 app.controller('reservationCtrl', ['$scope', 'reservationService', '$compile', 'resService', function ($scope, reservationService, $compile, resService) {
@@ -73,6 +74,7 @@ app.controller('reservationCtrl', ['$scope', 'reservationService', '$compile', '
             }
         };
         $scope.resRequest = function () {
+            console.log("Making Reservation Request");
             var allTbs = document.getElementsByName("field");
             for (var i = 0; i < allTbs.length; i++) {
                 if (allTbs[i].value === "") {
