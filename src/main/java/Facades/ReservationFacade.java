@@ -35,7 +35,7 @@ public class ReservationFacade {
         request.getReservePhone(), request.getReserveeEmail(), request.getPassengers());
         // This is the proper protocol. Gets implemented when other APIs are deployed.
         // URL url = new URL(request.getBaseUrl() + "/reservation/" + request.getFlightID());
-        URL url = new URL(request.getBaseUrl() + "/flightreservation/");
+        URL url = new URL(request.getBaseUrl() + "reservation/" + request.getFlightID());
           
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(5000);
