@@ -126,9 +126,11 @@ app.controller('searchCtrl', ['TicketFactory', '$scope', 'reservationService', f
             var name = '';
             var codeName = '';
             for (var i = 0; i < $scope.airports.length; i++) {
-                if ($scope.airports[i].code === code) {
+                if ($scope.airports[i].code === code.toUpperCase()) {
                     name = $scope.airports[i].name;
                     codeName = $scope.airports[i].code;
+                } else {
+                    codeName = code;
                 }
             }
             var res = name + "(" + codeName + ")";

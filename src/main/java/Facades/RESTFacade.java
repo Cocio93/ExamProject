@@ -36,10 +36,11 @@ public class RESTFacade {
 
     }
 
-    private final String[] baseUrls = {"http://airline-plaul.rhcloud.com/api/"};
+    private final String[] baseUrls = {"http://airline-plaul.rhcloud.com/api/flightinfo/", 
+        "http://46.101.174.179/kaffeairline/api/flights/", "http://localhost:8084/RESTAirline/api/flights/"};
 
     public JsonArray getFromFlights(String from, String date, int tickets) {
-        String endUrl = "flightinfo/" + from + "/" + date + "/" + tickets;
+        String endUrl = from + "/" + date + "/" + tickets;
         setResultArrayFromUrl(endUrl);
         JsonArray objects = resultArray;
         resultArray = new JsonArray();
@@ -85,11 +86,13 @@ public class RESTFacade {
     }
 
     private String setResultArrayFromUrl(String endUrl) {
-
+        
         JsonArray results = new JsonArray();
         for (String baseUrl : baseUrls) {
+            System.out.println(baseUrl + endUrl);
             try {
                 URL url = new URL(baseUrl + endUrl);
+                
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
