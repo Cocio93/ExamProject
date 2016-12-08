@@ -5,6 +5,9 @@
  */
 package REST;
 
+import Entities.RegisteredUser;
+import com.google.gson.Gson;
+import com.nimbusds.jose.JOSEException;
 import java.text.ParseException;
 
 /**
@@ -13,11 +16,10 @@ import java.text.ParseException;
  */
 public class ResourceTester {
 
-    public static void main(String[] args) throws ParseException {
-        FlightResource resource = new FlightResource();
-        String t = resource.getFromFlights("CPH","2017-01-1T00:00:00.000Z" , 3);
-        
-        ReservationResource reservationRe = new ReservationResource();
-        
+    public static void main(String[] args) throws ParseException, JOSEException {
+        Gson gson = new Gson();
+        RegisteredUser user = new RegisteredUser("Frank", "Hansen", "Fancisss", "1293pus");
+        UserResource resource = new UserResource();
+        resource.addNewUser(gson.toJson(user));       
     }
 }

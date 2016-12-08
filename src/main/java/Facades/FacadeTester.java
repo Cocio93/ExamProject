@@ -15,7 +15,7 @@ import java.text.ParseException;
 public class FacadeTester {
 
     public static void main(String[] args) throws ParseException {
-        RESTFacade facade = new RESTFacade();
-        System.out.println(facade.getFromFlights("CPH", "2017-01-01T00:00:00.000Z", 3));
+        UserFacade facade = new UserFacade();
+        facade.createUser("Hans", "Oskar", "Hansii", "thisisapassword");
     }
 }

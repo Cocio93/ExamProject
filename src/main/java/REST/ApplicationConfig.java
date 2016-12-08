@@ -32,6 +32,7 @@ public class ApplicationConfig extends Application {
         resources.add(REST.FlightResource.class);
         resources.add(REST.ReservationResource.class);
         resources.add(REST.TestResource.class);
+        resources.add(REST.UserResource.class);
     }
     
 }

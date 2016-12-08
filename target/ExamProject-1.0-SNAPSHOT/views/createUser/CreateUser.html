@@ -1,17 +1,41 @@
 <head>
-<link href="views/styles/formStyle.css" rel="stylesheet" type="text/css"/>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link href="views/styles/formStyle.css" rel="stylesheet" type="text/css"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
 <div class="form-style-8">
-  <h2>Create New Account</h2>
-  <form>
-    <input type="text" name="field1" placeholder="First name" />
-    <input type="text" name="field2" placeholder="Last name" />
-    <input type="text" name="field2" placeholder="Username" />
-    <input type="password" name="field2" placeholder="Password" />
-    <input type="password" name="field2" placeholder="Repeat Password" />
-    <input type="button" value="Create User" />
-  </form>
+    <h2>Create New Account</h2>
+    <form>
+        <input type="text" name="field1" placeholder="First name" ng-model="user.firstName" />
+        <input type="text" name="field2" placeholder="Last name" ng-model="user.lastName"/>
+        <input type="text" name="field2" placeholder="Username" ng-model="user.userName" />
+        <input type="password" name="field2" placeholder="Password" ng-model="user.password" />
+        <input type="password" name="field2" placeholder="Repeat Password" ng-model="user.rePassword"/>
+        <input type="button" value="Create User" ng-click="createUser()"/>
+    </form>
 </div>
+
+<div class="form-style-8" ng-show="!allFieldsFilled">
+    <div style="text-align: center; color: white; font-size: 20px">
+        All fields need to be filled!
+    </div>
+</div>
+
+<div class="form-style-8" ng-show="!passwordsMatch">
+    <div style="text-align: center; color: white; font-size: 20px">
+        The passwords do not match!
+    </div>
+</div> 
+
+<div class="form-style-8" ng-show="createSuccess">
+    <div style="text-align: center; color: white; font-size: 20px">
+        Successfully created new user!
+    </div>
+</div> 
+
+<div class="form-style-8" ng-show="userExists">
+    <div style="text-align: center; color: white; font-size: 20px">
+        A user with that Username already exists. Please choose another one!
+    </div>
+</div> 
 
 
