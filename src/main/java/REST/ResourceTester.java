@@ -17,9 +17,8 @@ import java.text.ParseException;
 public class ResourceTester {
 
     public static void main(String[] args) throws ParseException, JOSEException {
-        Gson gson = new Gson();
-        RegisteredUser user = new RegisteredUser("Frank", "Hansen", "Fancisss", "1293pus");
+        String json = "{userName: 'Cocio93', password: 'klippe'}";
         UserResource resource = new UserResource();
-        resource.addNewUser(gson.toJson(user));       
+        resource.login(json);       
     }
 }

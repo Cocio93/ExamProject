@@ -16,6 +16,6 @@ public class FacadeTester {
 
     public static void main(String[] args) throws ParseException {
         UserFacade facade = new UserFacade();
-        facade.createUser("Hans", "Oskar", "Hansii", "thisisapassword");
+        facade.login("Cocio93", "klippe");
     }
 }

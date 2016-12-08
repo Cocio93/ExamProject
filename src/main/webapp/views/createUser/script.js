@@ -11,7 +11,7 @@ app.controller("signUpController", ['$scope', 'signUpService', function ($scope,
         $scope.user = {firstName: '', lastName: '', userName: '', password: '', rePassword: ''};
         $scope.passwordsMatch = true;
         $scope.allFieldsFilled = true;
-        $scope.createSuccess = false
+        $scope.createSuccess = false;
         $scope.userExists = false;
 
         $scope.createUser = function () {
@@ -54,7 +54,7 @@ app.controller("signUpController", ['$scope', 'signUpService', function ($scope,
     }]);
 
 app.service("signUpService", function ($http) {
-    var url = '/ExamProject/api/signup';
+    var url = '/ExamProject/api/user/signup';
 
     return {
         createUser: function (user) {
