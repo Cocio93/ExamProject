@@ -37,7 +37,7 @@ public class RESTFacade {
     }
 
     private final String[] baseUrls = {"http://airline-plaul.rhcloud.com/api/flightinfo/", 
-        "http://46.101.174.179/kaffeairline/api/flights/", "http://localhost:8084/RESTAirline/api/flights/"};
+        "http://46.101.174.179/kaffeairline/api/flights/", "http://188.166.166.209/RESTAirline-1.0-SNAPSHOT/api/flights/"};
 
     public JsonArray getFromFlights(String from, String date, int tickets) {
         String endUrl = from + "/" + date + "/" + tickets;
