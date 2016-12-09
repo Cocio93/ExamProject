@@ -3,20 +3,27 @@
     <link href="views/styles/resultTable.css" rel="stylesheet" type="text/css"/>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
-<div>
+<div class="container">
     <div class="form-style-8" ng-show="!searchSuccess">
         <h2>Reserve Tickets</h2>
         <form name="frm">
-            <div style="color:#ffffff; font-size: 16px">
-                <label> Flight number: {{ticket.flightNumber}}</label> <br>
-                <label> Departure Airport: {{iATAToName(ticket.origin)}}</label><br>
-                <label> Departure Date: {{ticket.date| date : "short"}}</label><br>
-                <label> Arrival Airport: {{iATAToName(ticket.destination)}}</label><br>
-                <label> Travel time: {{minutesToHours(ticket.traveltime)}}</label><br>
-                <label> Number of seats: {{ticket.numberOfSeats}}</label><br>
-                <label> Total price: {{ticket.totalPrice| currency : "Kr. "}}</label><br><br><br>
+            <div style="color:#ffffff; font-size: 20px; text-align: left">
+                <div style="border-bottom: 1px solid rgba(255, 255, 255, .5)">
+                    <label>{{iATAToName(ticket.origin)}}&nbsp;-&nbsp;{{iATAToName(ticket.destination)}}</label><br>
+                    <label> Flight number:&nbsp;{{ticket.flightNumber}}</label> <br>
+                </div>
+                <div style="border-bottom: 1px solid rgba(255, 255, 255, .5)">
+                    <label> Departure Date:&nbsp;{{ticket.date| date : "MMM d, y h:mm a"}}</label><br>
+                    <label> Travel time:&nbsp;{{minutesToHours(ticket.traveltime)}}</label><br>
+                </div>
+                <div style="border-bottom: 1px solid rgba(255, 255, 255, .5)">
+                    <label> Number of seats:&nbsp;{{ticket.numberOfSeats}}</label><br>
+                    <label> Total price:&nbsp;{{ticket.totalPrice| currency : "Eur. "}}</label><br> 
+                </div><br>
 
-                <label>Reservee Information </label>
+
+
+                <label style="font-size: 20px">Reservee Information </label>
             </div>
             <input ng-model="reserveeInfo.reserveeName" type="text" name="field" placeholder="Reservee Name" />
             <input ng-model="reserveeInfo.reserveePhone" type="text" name="field" placeholder="Reservee Phone" />
@@ -24,7 +31,7 @@
 
             <div ng-init="addFields()"></div>
 
-            <div id="container" style="color:#ffffff"></div>
+            <div id="container" style="color:#ffffff; font-size: 20px"></div>
             <br><br>
             <input ng-click="resRequest()" type="button" value="Submit"/>
         </form>
@@ -38,16 +45,19 @@
     </h2>
 
 
-    <div class="form-style-inline" ng-repeat="p in ticketResult.passengers" style="color: white; height: 150px">
+    <div class="form-style-inline" ng-repeat="p in ticketResult.passengers" style="color: white; height: 180px">
+        <div class="row" style="text-align: center; font-size: 26px; margin-top: -50px; margin-bottom: 18px; border-bottom: 1px solid rgba(255, 255, 255, .7)"><br>
+            {{iATAToName(ticketResult.origin)}}&nbsp; - &nbsp; {{iATAToName(ticketResult.destination)}}
+        </div>
         <div class="col-md-6">
             <label style="font-size: 17px">Passenger Name:&nbsp;{{p.lastName}},&nbsp;{{p.firstName}}</label><br>
             <label style="font-size: 17px">Reservee Name:&nbsp;{{ticketResult.reserveeName}}</label><br>
-            <label style="font-size: 17px">Date:&nbsp;{{ticketResult.date}}</label>
+            <label style="font-size: 17px">Price:&nbsp;{{ticket.totalPrice / ticket.numberOfSeats| currency : "Eur. "}}</label>
         </div>
         <div class="col-md-6">
-            <label style="font-size: 17px">Route:&nbsp;{{iATAToName(ticketResult.origin)}}&nbsp; - &nbsp; {{iATAToName(ticketResult.destination)}}</label><br>
+            <label style="font-size: 17px">Date:&nbsp;{{ticketResult.date| date : "MMM d, y h:mm a"}}</label><br>
             <label style="font-size: 17px">Flight Number:&nbsp;{{ticketResult.flightNumber}}</label><br>
-            <label style="font-size: 17px">Flight Time:&nbsp;{{ticketResult.flightTime}}&nbsp;Minutes</label>
+            <label style="font-size: 17px">Flight Time:&nbsp;{{minutesToHours(ticketResult.flightTime)}}&nbsp;Minutes</label>
         </div>  
     </div>
 </div>
